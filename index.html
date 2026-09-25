@@ -1,0 +1,3345 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dirección de Obra</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            color: #1f2937;
+        }
+
+        .pantalla {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .contenedor {
+            width: 100%;
+            max-width: 560px;
+        }
+
+        .tarjeta {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        .logo {
+            text-align: center;
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 8px;
+        }
+
+        .subtitulo {
+            text-align: center;
+            color: #6b7280;
+            margin-bottom: 30px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 7px;
+            font-weight: bold;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            margin-bottom: 18px;
+            font-size: 15px;
+            font-family: Arial, sans-serif;
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        button {
+            width: 100%;
+            border: none;
+            border-radius: 10px;
+            padding: 15px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .btn-principal {
+            background: #1f4e79;
+            color: white;
+        }
+
+        .btn-principal:hover {
+            background: #173b5c;
+        }
+
+        .encabezado {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .usuario {
+            font-size: 14px;
+            color: #6b7280;
+            margin-top: 4px;
+        }
+
+        .btn-salir {
+            width: auto;
+            padding: 8px 14px;
+            background: #e5e7eb;
+            color: #374151;
+            font-size: 13px;
+        }
+
+        .seccion {
+            margin-bottom: 25px;
+        }
+
+        .titulo-seccion {
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #374151;
+        }
+
+        .proyecto-info {
+            background: #eef4f9;
+            padding: 14px;
+            border-radius: 8px;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .proyecto-info strong {
+            color: #1f4e79;
+        }
+
+        .modulo {
+            background: white;
+            border: 1px solid #dbe2e8;
+            border-radius: 14px;
+            padding: 22px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            text-align: left;
+            transition: 0.2s;
+        }
+
+        .modulo:hover {
+            border-color: #1f4e79;
+            transform: translateY(-2px);
+        }
+
+        .modulo-icono {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .modulo-titulo {
+            font-size: 19px;
+            font-weight: bold;
+            margin-bottom: 6px;
+        }
+
+        .modulo-descripcion {
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        .actividad {
+            background: white;
+            border: 1px solid #dbe2e8;
+            border-radius: 12px;
+            padding: 18px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: 0.2s;
+        }
+
+        .actividad:hover {
+            border-color: #1f4e79;
+            transform: translateY(-2px);
+        }
+
+        .actividad-icono {
+            font-size: 30px;
+            min-width: 40px;
+            text-align: center;
+        }
+
+        .actividad-titulo {
+            font-size: 17px;
+            font-weight: bold;
+            margin-bottom: 4px;
+        }
+
+        .actividad-descripcion {
+            color: #6b7280;
+            font-size: 13px;
+        }
+
+        .volver {
+            background: transparent;
+            color: #1f4e79;
+            text-align: left;
+            padding: 0;
+            margin-bottom: 20px;
+            width: auto;
+        }
+
+        .resultado {
+            background: #f8fafc;
+            border-left: 4px solid #1f4e79;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 5px;
+        }
+
+        .cumple {
+            background: #ecfdf5;
+            border-left: 4px solid #16a34a;
+            padding: 18px;
+            margin-top: 20px;
+            border-radius: 5px;
+            color: #166534;
+            font-weight: bold;
+        }
+
+        .bloque-control {
+            background: #f8fafc;
+            border-radius: 10px;
+            padding: 18px;
+            margin-bottom: 15px;
+        }
+
+        .bloque-titulo {
+            font-size: 15px;
+            font-weight: bold;
+            margin-bottom: 12px;
+        }
+
+        .control-item {
+            display: flex;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #e5e7eb;
+            font-size: 14px;
+        }
+
+        .control-item:last-child {
+            border-bottom: none;
+        }
+
+        .control-item input {
+            width: auto;
+            margin: 0 10px 0 0;
+        }
+
+        .fuente {
+            display: inline-block;
+            background: #e5eef5;
+            color: #1f4e79;
+            padding: 6px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            margin: 3px;
+        }
+
+        .documento {
+            border: 1px solid #dbe2e8;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 12px;
+        }
+
+        .documento-icono {
+            font-size: 25px;
+            margin-right: 10px;
+        }
+
+        .documento-nombre {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .documento-tipo {
+            color: #6b7280;
+            font-size: 13px;
+        }
+
+        .documento-relacion {
+            color: #1f4e79;
+            font-size: 12px;
+            margin-top: 8px;
+        }
+
+        .boton-documento {
+            background: #f3f4f6;
+            color: #374151;
+            margin-top: 10px;
+            padding: 10px;
+            font-size: 14px;
+        }
+
+        .separador {
+            height: 1px;
+            background: #e5e7eb;
+            margin: 25px 0;
+        }
+
+        .oculto {
+            display: none;
+        }
+
+
+        /* Mobile-first: documentos compactos y navegación de mezclas */
+        .modulo-documentos-compacto { padding: 13px 15px; display:flex; align-items:center; gap:12px; }
+        .modulo-documentos-compacto .modulo-icono { font-size:24px; margin:0; }
+        .modulo-documentos-compacto .modulo-titulo { font-size:16px; margin:0 0 2px; }
+        .modulo-documentos-compacto .modulo-descripcion { font-size:12px; }
+        .arbol-mezclas { margin-top:14px; }
+        .grupo-mezcla { border:1px solid #dbe2e8; border-radius:12px; margin-bottom:10px; overflow:hidden; background:#fff; }
+        .grupo-mezcla summary { list-style:none; cursor:pointer; padding:15px; font-weight:bold; display:flex; justify-content:space-between; align-items:center; gap:10px; }
+        .grupo-mezcla summary::-webkit-details-marker { display:none; }
+        .grupo-mezcla summary::after { content:'⌄'; color:#1f4e79; font-size:18px; }
+        .grupo-mezcla[open] > summary::after { content:'⌃'; }
+        .subgrupo-mezcla { padding:0 12px 12px; }
+        .opcion-mezcla { width:100%; text-align:left; background:#f8fafc; border:1px solid #e5e7eb; margin-top:8px; padding:13px 14px; color:#1f2937; }
+        .opcion-mezcla strong { color:#1f4e79; }
+        .opcion-mezcla.secundaria { background:#fff; }
+        .detalle-cac .subtitulo { margin-bottom:16px; }
+        .aviso-pliego { background:#eef4f9; border-left:4px solid #1f4e79; padding:12px; border-radius:8px; font-size:13px; line-height:1.45; margin-bottom:14px; }
+        .acordeon-control { border:1px solid #dbe2e8; border-radius:12px; margin-bottom:10px; overflow:hidden; background:#fff; }
+        .acordeon-control summary { list-style:none; cursor:pointer; padding:15px; font-weight:bold; font-size:15px; display:flex; justify-content:space-between; gap:10px; }
+        .acordeon-control summary::-webkit-details-marker { display:none; }
+        .acordeon-control summary::after { content:'＋'; color:#1f4e79; }
+        .acordeon-control[open] summary::after { content:'−'; }
+        .lista-control { padding:0 15px 12px; }
+        .item-control-link { display:block; width:100%; text-align:left; background:#f8fafc; color:#374151; border:0; border-top:1px solid #e5e7eb; border-radius:0; padding:13px 4px; font-size:14px; }
+        .badge-mezcla { display:inline-block; background:#e5eef5; color:#1f4e79; border-radius:999px; padding:5px 9px; font-size:11px; font-weight:bold; margin-bottom:10px; }
+        @media (max-width: 600px) {
+            .pantalla { padding:10px; align-items:flex-start; }
+            .tarjeta { padding:18px 14px; border-radius:14px; }
+            h1 { font-size:25px; }
+            .subtitulo { font-size:14px; margin-bottom:20px; }
+            button { min-height:48px; }
+            .actividad { padding:15px 13px; }
+            .actividad-icono { font-size:26px; min-width:34px; }
+            .actividad-titulo { font-size:16px; }
+            .proyecto-info { padding:11px; margin-bottom:14px; }
+        }
+
+    
+/* =====================================================
+   REQUISITOS MEZCLAS ASFÁLTICAS - MOBILE FIRST
+===================================================== */
+.requisitos-mezcla { margin-top: 15px; }
+
+.grupo-requisito {
+    background: #ffffff;
+    border: 1px solid #dbe2e8;
+    border-radius: 12px;
+    margin-bottom: 12px;
+    overflow: hidden;
+}
+
+.grupo-requisito-titulo {
+    width: 100%;
+    background: #f8fafc;
+    color: #1f2937;
+    padding: 16px;
+    border: none;
+    border-radius: 0;
+    text-align: left;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.grupo-requisito-contenido {
+    padding: 15px;
+    border-top: 1px solid #e5e7eb;
+}
+
+.subtitulo-requisito {
+    font-size: 14px;
+    font-weight: bold;
+    color: #1f4e79;
+    margin: 18px 0 8px 0;
+}
+
+.subtitulo-requisito:first-child { margin-top: 0; }
+
+.tabla-requisitos {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+    margin-bottom: 12px;
+}
+
+.tabla-requisitos th {
+    background: #1f4e79;
+    color: white;
+    padding: 10px 6px;
+    border: 1px solid #d1d5db;
+    text-align: center;
+}
+
+.tabla-requisitos th:first-child { text-align: left; }
+
+.tabla-requisitos td {
+    padding: 10px 6px;
+    border: 1px solid #d1d5db;
+    vertical-align: middle;
+}
+
+.tabla-requisitos td:not(:first-child) { text-align: center; }
+.tabla-requisitos tbody tr:nth-child(even) { background: #f8fafc; }
+
+.nota-requisito {
+    background: #fff8e6;
+    border-left: 4px solid #eab308;
+    padding: 12px;
+    border-radius: 5px;
+    font-size: 12px;
+    line-height: 1.5;
+    margin: 10px 0;
+}
+
+.info-requisito {
+    background: #eef4f9;
+    border-left: 4px solid #1f4e79;
+    padding: 12px;
+    border-radius: 5px;
+    font-size: 12px;
+    line-height: 1.5;
+    margin: 10px 0;
+}
+
+.fuente-requisito {
+    font-size: 11px;
+    color: #6b7280;
+    margin-top: 8px;
+}
+
+.estado-aceptacion {
+    padding: 10px;
+    border-radius: 7px;
+    margin-bottom: 8px;
+    font-size: 13px;
+}
+
+.estado-ok { background: #ecfdf5; color: #166534; }
+.estado-advertencia { background: #fff7ed; color: #9a3412; }
+.estado-rechazo { background: #fef2f2; color: #991b1b; }
+
+@media (max-width: 480px) {
+    .grupo-requisito-contenido { padding: 10px; }
+    .tabla-requisitos { font-size: 11px; }
+    .tabla-requisitos th,
+    .tabla-requisitos td { padding: 8px 4px; }
+}
+
+
+/* =====================================================
+   MATERIALES - ACORDEONES Y TABLAS COMPACTAS
+===================================================== */
+.material-acordeon {
+    margin-bottom: 10px;
+    border: 1px solid #dbe2e8;
+    border-radius: 10px;
+    overflow: hidden;
+    background: #fff;
+}
+.material-titulo {
+    width: 100%;
+    min-height: 50px;
+    padding: 13px 14px;
+    border: 0;
+    background: #f3f6f9;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-align: left;
+    font-size: 14px;
+    font-weight: 700;
+    color: #1f2937;
+    cursor: pointer;
+}
+.material-titulo.activo { background: #e8f0f7; color: #1f4e79; }
+.flecha-material, .flecha-subcaso { transition: transform .2s ease; }
+.material-titulo.activo .flecha-material,
+.subcaso-titulo.activo .flecha-subcaso { transform: rotate(180deg); }
+.material-contenido {
+    padding: 10px;
+    border-top: 1px solid #dbe2e8;
+}
+.subcaso-material {
+    margin: 12px 0;
+    border: 1px solid #dbe2e8;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.subcaso-titulo {
+    width: 100%;
+    min-height: 46px;
+    padding: 11px 12px;
+    border: 0;
+    background: #f8fafc;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: left;
+    font-size: 13px;
+    font-weight: 600;
+    color: #1f4e79;
+    cursor: pointer;
+}
+.subcaso-titulo.activo { background: #eef4f9; }
+.subcaso-contenido { padding: 10px; border-top: 1px solid #e5e7eb; }
+.tabla-scroll { width: 100%; overflow-x: auto; }
+.norma-tabla {
+    display: block;
+    margin-top: 3px;
+    font-size: 9px;
+    font-weight: normal;
+    color: #6b7280;
+}
+.lista-otros-requisitos { border-top: 1px solid #e5e7eb; }
+.otro-requisito { padding: 11px 2px; border-bottom: 1px solid #e5e7eb; }
+.otro-requisito-nombre { font-size: 12px; font-weight: 700; color: #1f2937; }
+.otro-requisito-valor { margin-top: 3px; font-size: 12px; color: #374151; }
+.otro-requisito-norma { margin-top: 2px; font-size: 10px; color: #6b7280; }
+.tabla-requisitos-material th:first-child { width: 38%; }
+.tabla-requisitos-material th:nth-child(2) { width: 30%; }
+.tabla-requisitos-material th:nth-child(3),
+.tabla-requisitos-material th:nth-child(4) { width: 16%; }
+@media (max-width:480px) {
+    .material-contenido { padding: 8px; }
+    .tabla-requisitos-material { font-size: 10px; }
+    .tabla-requisitos-material th,
+    .tabla-requisitos-material td { padding: 7px 3px; }
+    .norma-tabla { font-size: 8px; }
+}
+
+
+/* =====================================================
+   CATÁLOGO COMPLETO DE TAREAS DEL PLIEGO
+===================================================== */
+.familias-tareas { margin-top: 14px; }
+.familia-tarea {
+    border: 1px solid #dbe2e8;
+    border-radius: 12px;
+    margin-bottom: 10px;
+    overflow: hidden;
+    background: #fff;
+}
+.familia-tarea > summary {
+    min-height: 52px;
+    padding: 13px 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    cursor: pointer;
+    font-weight: 700;
+    color: #1f2937;
+    background: #f8fafc;
+    list-style: none;
+}
+.familia-tarea > summary::-webkit-details-marker { display:none; }
+.familia-tarea > summary small {
+    flex: 0 0 auto;
+    color: #6b7280;
+    font-size: 10px;
+    font-weight: 600;
+}
+.lista-actividades-pliego { padding: 8px; border-top: 1px solid #e5e7eb; }
+.lista-actividades-pliego button {
+    width: 100%;
+    min-height: 48px;
+    margin: 0 0 7px 0;
+    padding: 11px 12px;
+    border: 1px solid #dbe2e8;
+    border-radius: 9px;
+    background: #fff;
+    color: #1f2937;
+    text-align: left;
+    cursor: pointer;
+}
+.lista-actividades-pliego button:last-child { margin-bottom: 0; }
+.lista-actividades-pliego button strong { display:block; font-size:12px; line-height:1.35; }
+.lista-actividades-pliego button small { display:block; margin-top:3px; color:#6b7280; font-size:10px; }
+.tarea-pliego-lista { margin: 0; padding: 0; list-style: none; }
+.tarea-pliego-lista li {
+    padding: 10px 2px;
+    border-bottom: 1px solid #e5e7eb;
+    font-size: 12px;
+    line-height: 1.4;
+}
+.tarea-pliego-lista li:last-child { border-bottom:0; }
+.tarea-pliego-lista li::before { content:"✓"; color:#1f4e79; font-weight:700; margin-right:8px; }
+
+
+/* Documento del proyecto más compacto en pantalla principal */
+.modulo-documentos-compacto {
+    padding: 9px 12px !important;
+    min-height: 0 !important;
+}
+.modulo-documentos-compacto h3,
+.modulo-documentos-compacto .titulo-modulo,
+.modulo-documentos-compacto .titulo-documentos {
+    margin-top: 0 !important;
+    margin-bottom: 3px !important;
+}
+.modulo-documentos-compacto p {
+    margin-top: 2px !important;
+    margin-bottom: 2px !important;
+}
+.modulo-documentos-compacto button,
+.modulo-documentos-compacto .btn-link,
+.modulo-documentos-compacto a {
+    min-height: 34px !important;
+    padding-top: 6px !important;
+    padding-bottom: 6px !important;
+}
+
+/* =====================================================
+   NAVEGACIÓN DIRECTA POR FAMILIA
+===================================================== */
+.familias-directas {
+    margin-top: 14px;
+}
+.familia-directa {
+    width: 100%;
+    min-height: 49px;
+    margin: 0 0 9px 0;
+    padding: 11px 13px;
+    border: 1px solid #dbe2e8;
+    border-radius: 11px;
+    background: #f8fafc;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    color: #111827;
+    text-align: left;
+    cursor: pointer;
+}
+.familia-directa:active {
+    background: #eaf1f7;
+}
+.familia-directa .familia-nombre {
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.25;
+}
+.familia-directa small {
+    flex: 0 0 auto;
+    font-size: 9px;
+    color: #4b5563;
+}
+
+
+/* === Pantallas validadas de Movimiento de suelo === */
+.actividad-validada{font-size:13px;line-height:1.55;color:#1f2937}.actividad-validada h3{margin:18px 0 8px;font-size:15px;color:#1f4e79}.actividad-validada h4{margin:14px 0 6px;font-size:13px;color:#263746}.actividad-validada ul{margin:6px 0 10px;padding-left:20px}.actividad-validada li{margin:5px 0}.dato-clave{margin:8px 0;padding:10px 12px;border-left:4px solid #1f4e79;background:#eef4f9;border-radius:6px;font-weight:700}.aviso-control{margin:10px 0;padding:10px 12px;background:#fff7e6;border:1px solid #f2d49b;border-radius:8px}.criterio-ok{margin:8px 0;padding:10px 12px;background:#eef7f0;border:1px solid #cfe5d4;border-radius:8px}.criterio-rechazo{margin:8px 0;padding:10px 12px;background:#fff1f1;border:1px solid #efcccc;border-radius:8px}.tabla-app{width:100%;border-collapse:collapse;margin:9px 0 13px;font-size:11px}.tabla-app th,.tabla-app td{border:1px solid #dbe2e8;padding:7px 6px;vertical-align:top}.tabla-app th{background:#eef4f9;color:#1f4e79;font-weight:700}.tabla-app td:not(:first-child),.tabla-app th:not(:first-child){text-align:center}.subtitulo-app{margin-top:18px;padding-top:12px;border-top:1px solid #e5e7eb;font-size:16px;font-weight:800;color:#1f2937}@media(max-width:480px){.actividad-validada{font-size:12px}.tabla-app{font-size:10px}.tabla-app th,.tabla-app td{padding:6px 4px}}
+</style>
+</head>
+
+<body>
+
+
+<!-- ===================================================== -->
+<!-- LOGIN -->
+<!-- ===================================================== -->
+
+<div id="pantallaLogin" class="pantalla">
+
+    <div class="contenedor">
+
+        <div class="tarjeta">
+
+            <div class="logo">
+                🏗️
+            </div>
+
+            <h1>
+                Dirección de Obra
+            </h1>
+
+            <p class="subtitulo">
+                Asistente técnico para control y consulta de obra
+            </p>
+
+            <label>
+                Usuario
+            </label>
+
+            <input
+                type="text"
+                id="usuario"
+                placeholder="Ingresá tu usuario"
+            >
+
+            <label>
+                Contraseña
+            </label>
+
+            <input
+                type="password"
+                id="password"
+                placeholder="Ingresá tu contraseña"
+            >
+
+            <button
+                class="btn-principal"
+                onclick="iniciarSesion()"
+            >
+                Ingresar
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ===================================================== -->
+<!-- INICIO -->
+<!-- ===================================================== -->
+
+<div id="pantallaInicio" class="pantalla oculto">
+
+    <div class="contenedor">
+
+        <div class="tarjeta">
+
+            <div class="encabezado">
+
+                <div>
+
+                    <strong>
+                        Dirección de Obra
+                    </strong>
+
+                    <div
+                        class="usuario"
+                        id="nombreUsuario"
+                    ></div>
+
+                </div>
+
+                <button
+                    class="btn-salir"
+                    onclick="cerrarSesion()"
+                >
+                    Salir
+                </button>
+
+            </div>
+
+
+            <!-- PROYECTO -->
+
+            <div class="seccion">
+
+                <div class="titulo-seccion">
+                    PROYECTO
+                </div>
+
+                <select
+                    id="selectorProyecto"
+                    onchange="cambiarProyecto()"
+                >
+
+                    <option value="Ruta 8 – Tramo 3">
+                        Ruta 8 – Tramo 3
+                    </option>
+
+                    <option value="Ruta 26 – Tramo 1">
+                        Ruta 26 – Tramo 1
+                    </option>
+
+                    <option value="Accesos a Montevideo">
+                        Accesos a Montevideo
+                    </option>
+
+                    <option value="crear">
+                        ＋ Crear nuevo proyecto
+                    </option>
+
+                </select>
+
+                <div
+                    id="proyectoActivo"
+                    class="proyecto-info"
+                >
+
+                    Proyecto activo:
+                    <strong>
+                        Ruta 8 – Tramo 3
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- DOCUMENTOS -->
+
+            <div class="seccion">
+
+                <div class="titulo-seccion">
+                    DOCUMENTOS DEL PROYECTO
+                </div>
+
+                <div
+                    class="modulo"
+                    onclick="mostrarDocumentos()"
+                >
+
+                    <div class="modulo-icono">
+                        📁
+                    </div>
+
+                    <div class="modulo-titulo">
+                        Documentos
+                    </div>
+
+                    <div class="modulo-descripcion">
+                        Cargar y consultar pliegos, fórmulas,
+                        especificaciones y demás documentación
+                        de la obra.
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- MODULOS -->
+
+            <div class="seccion">
+
+                <div class="titulo-seccion">
+                    MÓDULOS
+                </div>
+
+
+                <!-- QUE DEBO CONTROLAR -->
+
+                <div
+                    class="modulo"
+                    onclick="mostrarControles()"
+                >
+
+                    <div class="modulo-icono">
+                        📋
+                    </div>
+
+                    <div class="modulo-titulo">
+                        ¿Qué debo controlar?
+                    </div>
+
+                    <div class="modulo-descripcion">
+                        Ver tareas y controles de obra.
+                    </div>
+
+                </div>
+
+
+                <!-- ENSAYOS -->
+
+                <div
+                    class="modulo"
+                    onclick="mostrarEnsayos()"
+                >
+
+                    <div class="modulo-icono">
+                        🧪
+                    </div>
+
+                    <div class="modulo-titulo">
+                        Ensayos
+                    </div>
+
+                    <div class="modulo-descripcion">
+                        Ingresar resultados y verificar
+                        cumplimiento.
+                    </div>
+
+                </div>
+
+
+                <!-- CONSULTAS -->
+
+                <div
+                    class="modulo"
+                    onclick="mostrarConsultas()"
+                >
+
+                    <div class="modulo-icono">
+                        🔎
+                    </div>
+
+                    <div class="modulo-titulo">
+                        Consultas
+                    </div>
+
+                    <div class="modulo-descripcion">
+                        Buscar información en los documentos
+                        y manuales.
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ===================================================== -->
+<!-- DOCUMENTOS -->
+<!-- ===================================================== -->
+
+<div id="pantallaDocumentos" class="pantalla oculto">
+
+    <div class="contenedor">
+
+        <div class="tarjeta">
+
+            <button
+                class="volver"
+                onclick="volverUnaPantalla()"
+            >
+                ← Volver
+            </button>
+
+            <h1>
+                Documentos
+            </h1>
+
+            <p class="subtitulo">
+                Documentación del proyecto
+            </p>
+
+            <div class="proyecto-info">
+
+                Proyecto activo:
+                <strong id="proyectoDocumentos">
+                    Ruta 8 – Tramo 3
+                </strong>
+
+            </div>
+
+
+            <!-- CARGAR DOCUMENTO -->
+
+            <div class="bloque-control">
+
+                <div class="bloque-titulo">
+                    📄 Cargar nuevo documento
+                </div>
+
+                <label>
+                    Tipo de documento
+                </label>
+
+                <select id="tipoDocumento">
+
+                    <option>
+                        Pliego de condiciones
+                    </option>
+
+                    <option>
+                        Fórmula de mezcla
+                    </option>
+
+                    <option>
+                        Especificación técnica
+                    </option>
+
+                    <option>
+                        Plano
+                    </option>
+
+                    <option>
+                        Informe
+                    </option>
+
+                    <option>
+                        Ensayo de laboratorio
+                    </option>
+
+                    <option>
+                        Otro
+                    </option>
+
+                </select>
+
+                <label>
+                    Nombre del documento
+                </label>
+
+                <input
+                    type="text"
+                    id="nombreDocumento"
+                    placeholder="Ej.: Fórmula de mezcla SMA 12"
+                >
+
+                <label>
+                    Archivo
+                </label>
+
+                <input
+                    type="file"
+                    id="archivoDocumento"
+                >
+
+                <button
+                    class="btn-principal"
+                    onclick="cargarDocumento()"
+                >
+                    Cargar documento
+                </button>
+
+            </div>
+
+
+            <div class="separador"></div>
+
+
+            <!-- DOCUMENTOS EXISTENTES -->
+
+            <div class="bloque-control">
+
+                <div class="bloque-titulo">
+                    📚 Documentos cargados
+                </div>
+
+
+                <div class="documento">
+
+                    <div class="documento-nombre">
+
+                        📄 Pliego de Condiciones
+
+                    </div>
+
+                    <div class="documento-tipo">
+
+                        Pliego de condiciones
+                    </div>
+
+                    <div class="documento-relacion">
+
+                        Disponible para:
+                        Consultas · Ensayos · Controles
+
+                    </div>
+
+                    <button
+                        class="boton-documento"
+                    >
+                        Ver documento
+                    </button>
+
+                </div>
+
+
+                <div class="documento">
+
+                    <div class="documento-nombre">
+
+                        📄 Fórmula de mezcla
+
+                    </div>
+
+                    <div class="documento-tipo">
+
+                        Fórmula de mezcla asfáltica
+
+                    </div>
+
+                    <div class="documento-relacion">
+
+                        Disponible para:
+                        Controles · Ensayos · Consultas
+
+                    </div>
+
+                    <button
+                        class="boton-documento"
+                    >
+                        Ver documento
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ===================================================== -->
+<!-- CONSULTAS -->
+<!-- ===================================================== -->
+
+<div id="pantallaConsultas" class="pantalla oculto">
+
+    <div class="contenedor">
+
+        <div class="tarjeta">
+
+            <button
+                class="volver"
+                onclick="volverUnaPantalla()"
+            >
+                ← Volver
+            </button>
+
+            <h1>
+                Consultas
+            </h1>
+
+            <p class="subtitulo">
+                Buscar información técnica
+            </p>
+
+
+            <label>
+                Fuente de información
+            </label>
+
+            <select>
+
+                <option>
+                    Documentos del proyecto + Manuales
+                </option>
+
+                <option>
+                    Solo documentos del proyecto
+                </option>
+
+                <option>
+                    Solo manuales
+                </option>
+
+            </select>
+
+
+            <div class="proyecto-info">
+
+                Proyecto activo:
+                <strong id="proyectoConsulta">
+                    Ruta 8 – Tramo 3
+                </strong>
+
+            </div>
+
+
+            <label>
+                ¿Qué necesitás consultar?
+            </label>
+
+            <input
+                type="text"
+                id="pregunta"
+                placeholder="Ej.: ¿Cuál es el CBR mínimo requerido?"
+            >
+
+
+            <button
+                class="btn-principal"
+                onclick="realizarConsulta()"
+            >
+                Consultar
+            </button>
+
+
+            <div
+                id="resultadoConsulta"
+                class="resultado oculto"
+            ></div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ===================================================== -->
+<!-- ENSAYOS -->
+<!-- ===================================================== -->
+
+<div id="pantallaEnsayos" class="pantalla oculto">
+
+    <div class="contenedor">
+
+        <div class="tarjeta">
+
+            <button
+                class="volver"
+                onclick="volverUnaPantalla()"
+            >
+                ← Volver
+            </button>
+
+            <h1>
+                Ensayos
+            </h1>
+
+            <p class="subtitulo">
+                Verificar requisitos de obra
+            </p>
+
+
+            <label>
+                Fuente de requisitos
+            </label>
+
+            <select>
+
+                <option>
+                    Documentos del proyecto + Manuales
+                </option>
+
+                <option>
+                    Solo documentos del proyecto
+                </option>
+
+                <option>
+                    Solo manuales
+                </option>
+
+            </select>
+
+
+            <label>
+                Material / elemento
+            </label>
+
+            <select>
+
+                <option>
+                    Seleccionar
+                </option>
+
+                <option>
+                    Base granular
+                </option>
+
+                <option>
+                    Subbase
+                </option>
+
+                <option>
+                    Suelo
+                </option>
+
+                <option>
+                    Hormigón
+                </option>
+
+                <option>
+                    Mezcla asfáltica
+                </option>
+
+            </select>
+
+
+            <label>
+                Ensayo
+            </label>
+
+            <select>
+
+                <option>
+                    Seleccionar
+                </option>
+
+                <option>
+                    CBR
+                </option>
+
+                <option>
+                    Compactación
+                </option>
+
+                <option>
+                    Granulometría
+                </option>
+
+                <option>
+                    Humedad
+                </option>
+
+            </select>
+
+
+            <button
+                class="btn-principal"
+                onclick="mostrarResultadoEnsayo()"
+            >
+                Ingresar resultado
+            </button>
+
+
+            <div
+                id="resultadoEnsayo"
+                class="cumple oculto"
+            >
+
+                ✓ CUMPLE
+
+                <br><br>
+
+                Resultado: 64 %
+
+                <br>
+
+                Requisito: ≥ 60 %
+
+                <br><br>
+
+                Fuente: Documento del proyecto
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ===================================================== -->
+<!-- QUE DEBO CONTROLAR -->
+<!-- ===================================================== -->
+
+<div id="pantallaControles" class="pantalla oculto">
+  <div class="contenedor">
+    <div class="tarjeta">
+      <button class="volver" onclick="volverUnaPantalla()">← Volver</button>
+      <h1>¿Qué debo controlar?</h1>
+      <p class="subtitulo">Seleccioná la familia de trabajos</p>
+      <div class="proyecto-info">Proyecto activo: <strong id="proyectoControles">Ruta 8 – Tramo 3</strong></div>
+
+      <div class="familias-directas">
+        <button class="familia-directa" onclick="mostrarFamiliaTareas('2')">
+          <span class="familia-nombre">🌱 Movimiento de suelo</span>
+        </button>
+        <button class="familia-directa" onclick="mostrarFamiliaTareas('3')">
+          <span class="familia-nombre">🪨 Bases y subbases</span>
+        </button>
+        <button class="familia-directa" onclick="mostrarFamiliaTareas('4')">
+          <span class="familia-nombre">💧 Riegos asfálticos</span>
+        </button>
+        <button class="familia-directa" onclick="mostrarFamiliaTareas('5')">
+          <span class="familia-nombre">🛤️ Tratamientos asfálticos</span>
+        </button>
+        <button class="familia-directa" onclick="mostrarTemperaturaMezclas()">
+          <span class="familia-nombre">🛣️ Mezclas asfálticas</span>
+        </button>
+
+        <button class="familia-directa" onclick="mostrarFamiliaTareas('8')">
+          <span class="familia-nombre">⬜ Pavimentos de hormigón</span>
+        </button>
+        <button class="familia-directa" onclick="mostrarAcopios()">
+          <span class="familia-nombre">📦 Acopios</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================================================== -->
+<!-- ACTIVIDADES DE LA FAMILIA SELECCIONADA -->
+<!-- ===================================================== -->
+<div id="pantallaFamiliaTareas" class="pantalla oculto">
+  <div class="contenedor">
+    <div class="tarjeta">
+      <button class="volver" onclick="volverUnaPantalla()">← Volver</button>
+      <div class="badge-mezcla" id="badgeFamiliaTareas">SECCIÓN</div>
+      <h1 id="tituloFamiliaTareas">Familia de trabajos</h1>
+      <p class="subtitulo">Seleccioná la actividad</p>
+      <div class="proyecto-info">Proyecto activo: <strong id="proyectoFamiliaTareas">Ruta 8 – Tramo 3</strong></div>
+      <div id="listaFamiliaTareas" class="lista-actividades-pliego"></div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ===================================================== -->
+<!-- TEMPERATURA DE MEZCLAS ASFÁLTICAS -->
+<!-- ===================================================== -->
+<div id="pantallaTemperaturaMezclas" class="pantalla oculto">
+  <div class="contenedor">
+    <div class="tarjeta">
+      <button class="volver" onclick="volverUnaPantalla()">← Volver</button>
+      <h1>Mezclas asfálticas</h1>
+      <p class="subtitulo">Seleccioná el tipo de elaboración</p>
+      <div class="proyecto-info">Proyecto activo: <strong id="proyectoTemperaturaMezclas">Ruta 8 – Tramo 3</strong></div>
+
+      <div class="familias-directas">
+        <button class="familia-directa" onclick="mostrarMezclasPorTemperatura('caliente')">
+          <span class="familia-nombre">🔥 Mezclas en caliente</span>
+        </button>
+        <button class="familia-directa" onclick="mostrarMezclasPorTemperatura('semicaliente')">
+          <span class="familia-nombre">🌡️ Mezclas semicalientes</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================================================== -->
+<!-- TIPOS SEGÚN TEMPERATURA -->
+<!-- ===================================================== -->
+<div id="pantallaMezclasTemperatura" class="pantalla oculto">
+  <div class="contenedor">
+    <div class="tarjeta">
+      <button class="volver" onclick="volverUnaPantalla()">← Volver</button>
+      <h1 id="tituloMezclasTemperatura">Mezclas en caliente</h1>
+      <p class="subtitulo">Seleccioná el tipo de mezcla</p>
+      <div class="proyecto-info">Proyecto activo: <strong id="proyectoMezclasTemperatura">Ruta 8 – Tramo 3</strong></div>
+      <div id="listaMezclasTemperatura" class="lista-actividades-pliego"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================================================== -->
+<!-- ACOPIOS -->
+<!-- ===================================================== -->
+<div id="pantallaAcopios" class="pantalla oculto">
+  <div class="contenedor">
+    <div class="tarjeta">
+      <button class="volver" onclick="volverUnaPantalla()">← Volver</button>
+      <h1>Acopios</h1>
+      <p class="subtitulo">Recepción, identificación, almacenamiento y conservación de materiales</p>
+      <div class="proyecto-info">Proyecto activo: <strong id="proyectoAcopios">Ruta 8 – Tramo 3</strong></div>
+
+      <div class="aviso-pliego">
+        <strong>Jerarquía de fuentes:</strong> los requisitos del Pliego y de la documentación contractual del proyecto prevalecen.
+        El Manual para la Dirección de Obra 2024 se utiliza como guía complementaria de control.
+      </div>
+
+      <div class="lista-actividades-pliego">
+        <button onclick="mostrarActividadPliego('A1')"><strong>Agregados pétreos</strong><small>Separación · contaminación · segregación · humedad</small></button>
+        <button onclick="mostrarActividadPliego('A2')"><strong>Suelos y materiales granulares</strong><small>Procedencia · homogeneidad · drenaje · conservación</small></button>
+        <button onclick="mostrarActividadPliego('A3')"><strong>Ligantes asfálticos y emulsiones</strong><small>Identificación · tanques · temperatura · contaminación</small></button>
+        <button onclick="mostrarActividadPliego('A4')"><strong>RAP / material fresado</strong><small>Clasificación · homogeneidad · humedad · contaminación</small></button>
+        <button onclick="mostrarActividadPliego('A5')"><strong>Cemento · cal · filler</strong><small>Protección frente a humedad · identificación · vencimientos</small></button>
+        <button onclick="mostrarActividadPliego('A6')"><strong>Acero, barras y materiales para hormigón</strong><small>Identificación · limpieza · protección · conservación</small></button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ===================================================== -->
+<!-- TIPO DE LIGANTE: CONVENCIONAL / MODIFICADO -->
+<!-- ===================================================== -->
+<div id="pantallaTipoLiganteMezcla" class="pantalla oculto">
+  <div class="contenedor">
+    <div class="tarjeta">
+      <button class="volver" onclick="volverUnaPantalla()">← Volver</button>
+      <h1 id="tituloTipoLiganteMezcla">Concreto asfáltico</h1>
+      <p class="subtitulo">Seleccioná el tipo de ligante</p>
+      <div class="proyecto-info">Proyecto activo: <strong id="proyectoTipoLiganteMezcla">Ruta 8 – Tramo 3</strong></div>
+
+      <div class="familias-directas">
+        <button class="familia-directa" onclick="seleccionarLiganteMezcla('Convencional')">
+          <span class="familia-nombre">Convencional</span>
+        </button>
+        <button class="familia-directa" onclick="seleccionarLiganteMezcla('Modificada')">
+          <span class="familia-nombre">Modificado</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================================================== -->
+<!-- TIPOS DE MEZCLA ASFALTICA -->
+<!-- ===================================================== -->
+<div id="pantallaTiposMezcla" class="pantalla oculto">
+  <div class="contenedor"><div class="tarjeta">
+    <button class="volver" onclick="volverUnaPantalla()">← Volver</button>
+    <h1>🛣️ Mezclas asfálticas</h1>
+    <p class="subtitulo">Seleccioná el tipo de mezcla</p>
+    <div class="proyecto-info">Proyecto: <strong id="proyectoMezclas">Ruta 8 – Tramo 3</strong></div>
+    <div class="arbol-mezclas">
+      <details class="grupo-mezcla" open>
+        <summary>Concreto asfáltico</summary>
+        <div class="subgrupo-mezcla">
+          <details class="grupo-mezcla">
+            <summary>🔥 Caliente (CAC)</summary>
+            <div class="subgrupo-mezcla">
+              <button class="opcion-mezcla" onclick="mostrarDetalleMezcla('CAC','Convencional')"><strong>Convencional</strong><br><small>Ligante asfáltico convencional</small></button>
+              <button class="opcion-mezcla secundaria" onclick="mostrarDetalleMezcla('CAC','Modificada')"><strong>Modificada</strong><br><small>Ligante asfáltico modificado</small></button>
+            </div>
+          </details>
+          <details class="grupo-mezcla">
+            <summary>🌡️ Semicaliente (CAS)</summary>
+            <div class="subgrupo-mezcla">
+              <button class="opcion-mezcla" onclick="mostrarDetalleMezcla('CAS','Convencional')"><strong>Convencional</strong></button>
+              <button class="opcion-mezcla secundaria" onclick="mostrarDetalleMezcla('CAS','Modificada')"><strong>Modificada</strong></button>
+            </div>
+          </details>
+        </div>
+      </details>
+      <details class="grupo-mezcla"><summary>♻️ Concreto asfáltico con RAP</summary><div class="subgrupo-mezcla"><button class="opcion-mezcla" onclick="mostrarDetalleMezcla('CAC-R','')">🔥 Caliente (CAC-R)</button><button class="opcion-mezcla secundaria" onclick="mostrarDetalleMezcla('CAS-R','')">🌡️ Semicaliente (CAS-R)</button></div></details>
+      <details class="grupo-mezcla"><summary>Arena-asfalto</summary><div class="subgrupo-mezcla"><button class="opcion-mezcla" onclick="mostrarDetalleMezcla('MAAC','')">🔥 Caliente (MAAC)</button><button class="opcion-mezcla secundaria" onclick="mostrarDetalleMezcla('MAAS','')">🌡️ Semicaliente (MAAS)</button></div></details>
+      <details class="grupo-mezcla"><summary>Microaglomerado tipo F</summary><div class="subgrupo-mezcla"><button class="opcion-mezcla" onclick="mostrarDetalleMezcla('MAC-F','')">🔥 Caliente (MAC-F)</button><button class="opcion-mezcla secundaria" onclick="mostrarDetalleMezcla('MAS-F','')">🌡️ Semicaliente (MAS-F)</button></div></details>
+    </div>
+  </div></div>
+</div>
+
+<!-- ===================================================== -->
+<!-- DETALLE DE MEZCLA -->
+<!-- ===================================================== -->
+
+<div id="pantallaDetalleMezcla" class="pantalla oculto">
+  <div class="contenedor">
+    <div class="tarjeta detalle-cac">
+      <button class="volver" onclick="volverUnaPantalla()">← Volver</button>
+      <span class="badge-mezcla" id="badgeSeccionMezcla">SECCIÓN 6A</span>
+      <h1 id="tituloMezcla">CAC – Convencional</h1>
+      <p class="subtitulo" id="descripcionMezcla">Concreto asfáltico en caliente</p>
+      <div class="proyecto-info">Proyecto: <strong id="proyectoDetalleMezcla">Ruta 8 – Tramo 3</strong></div>
+      <div class="aviso-pliego">
+        Los controles comunes se comparten entre mezclas. Los requisitos específicos del ligante
+        se mostrarán según corresponda a <strong id="tipoLiganteAviso">convencional</strong>.
+      </div>
+
+<div class="requisitos-mezcla">
+
+    <!-- =====================================================
+         ANTES DE EJECUTAR
+    ====================================================== -->
+
+    <div class="grupo-requisito">
+
+        <button class="grupo-requisito-titulo"
+                onclick="toggleRequisito('reqAntes')">
+            <span>📋 ANTES DE EJECUTAR</span>
+            <span>⌄</span>
+        </button>
+
+        <div id="reqAntes"
+             class="grupo-requisito-contenido oculto">
+
+
+            <!-- MATERIALES -->
+
+            <div class="grupo-requisito">
+
+                <button class="grupo-requisito-titulo"
+                        onclick="toggleRequisito('reqMateriales')">
+                    <span>Materiales</span>
+                    <span>⌄</span>
+                </button>
+
+                <div id="reqMateriales" class="grupo-requisito-contenido oculto">
+
+<div class="material-acordeon">
+<button class="material-titulo" onclick="toggleMaterial('materialAgregadoGrueso', this)">
+<span>Agregado grueso</span><span class="flecha-material">⌄</span>
+</button>
+<div id="materialAgregadoGrueso" class="material-contenido oculto">
+
+<div class="subtitulo-requisito">Requisitos generales</div>
+<div class="tabla-scroll">
+<table class="tabla-requisitos tabla-requisitos-material">
+<thead><tr><th>Requisito</th><th>Capa</th><th>P1</th><th>P2</th></tr></thead>
+<tbody>
+<tr><td rowspan="2"><strong>Índice de lajas</strong><span class="norma-tabla">IRAM 1687-1</span></td><td>Rodamiento</td><td>≤ 25</td><td>≤ 25</td></tr>
+<tr><td>Base</td><td>≤ 30</td><td>≤ 30</td></tr>
+<tr><td rowspan="2"><strong>Los Ángeles</strong><span class="norma-tabla">IRAM 1532</span></td><td>Rodamiento</td><td>≤ 35</td><td>≤ 35</td></tr>
+<tr><td>Base</td><td>≤ 35</td><td>≤ 35</td></tr>
+<tr><td rowspan="2"><strong>Micro-Deval</strong><span class="norma-tabla">ASTM D6928</span></td><td>Rodamiento</td><td>≤ 17</td><td>≤ 17</td></tr>
+<tr><td>Base</td><td>≤ 17</td><td>≤ 17</td></tr>
+<tr><td rowspan="2"><strong>≥ 3 caras de fractura</strong><span class="norma-tabla">IRAM 1851</span></td><td>Rodamiento</td><td>100 %</td><td>&gt; 95 %</td></tr>
+<tr><td>Base</td><td>&gt; 90 %</td><td>≥ 85 %</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="nota-requisito">El 100 % de las partículas debe tener una o más caras de fractura.</div>
+
+<div class="subcaso-material">
+<button class="subcaso-titulo" onclick="toggleSubcaso('agregadoBasaltico', this)">
+<span>Si el agregado es basáltico</span><span class="flecha-subcaso">⌄</span>
+</button>
+<div id="agregadoBasaltico" class="subcaso-contenido oculto">
+<table class="tabla-requisitos">
+<thead><tr><th>Requisito</th><th>Exigencia</th></tr></thead>
+<tbody>
+<tr><td><strong>Los Ángeles</strong><span class="norma-tabla">IRAM 1532</span></td><td>≤ 25</td></tr>
+<tr><td><strong>Micro-Deval</strong><span class="norma-tabla">ASTM D6928</span></td><td>≤ 17</td></tr>
+<tr><td><strong>Degradación en dimetil-sulfóxido</strong><span class="norma-tabla">UY A 26</span></td><td>≤ 60 %</td></tr>
+</tbody>
+</table>
+<div class="fuente-requisito">Fuente: Sección 6A — Tabla 8</div>
+</div>
+</div>
+
+<div class="subcaso-material">
+<button class="subcaso-titulo" onclick="toggleSubcaso('agregadoCantoRodado', this)">
+<span>Si proviene de canto rodado</span><span class="flecha-subcaso">⌄</span>
+</button>
+<div id="agregadoCantoRodado" class="subcaso-contenido oculto">
+<table class="tabla-requisitos">
+<thead><tr><th>Tipo de capa</th><th>P1</th><th>P2</th></tr></thead>
+<tbody>
+<tr><td>Rodamiento</td><td>≥ 5</td><td>≥ 4</td></tr>
+<tr><td>Base</td><td>≥ 3</td><td>≥ 3</td></tr>
+</tbody>
+</table>
+<div class="fuente-requisito">Relación de tamaño de partícula a triturar. Fuente: Sección 6A — Tabla 7</div>
+</div>
+</div>
+
+<div class="subtitulo-requisito">Otros requisitos</div>
+<div class="lista-otros-requisitos">
+<div class="otro-requisito"><div class="otro-requisito-nombre">Elongación</div><div class="otro-requisito-valor">Determinación obligatoria</div><div class="otro-requisito-norma">IRAM 1687-2</div></div>
+<div class="otro-requisito"><div class="otro-requisito-nombre">Plasticidad pasante 425 µm</div><div class="otro-requisito-valor">No plástico</div><div class="otro-requisito-norma">IRAM 10501</div></div>
+<div class="otro-requisito"><div class="otro-requisito-nombre">Polvo adherido</div><div class="otro-requisito-valor">Rodamiento ≤ 1,0 · Base ≤ 1,2</div><div class="otro-requisito-norma">IRAM 1883</div></div>
+<div class="otro-requisito"><div class="otro-requisito-nombre">Estado físico de la roca</div><div class="otro-requisito-valor">Determinación obligatoria</div><div class="otro-requisito-norma">IRAM 1702 / IRAM 1703</div></div>
+<div class="otro-requisito"><div class="otro-requisito-nombre">Coeficiente de pulimento acelerado</div><div class="otro-requisito-valor">Determinación obligatoria</div><div class="otro-requisito-norma">ASTM D3319</div></div>
+<div class="otro-requisito"><div class="otro-requisito-nombre">Granulometría</div><div class="otro-requisito-valor">Debe permitir cumplir la Fórmula de Obra</div><div class="otro-requisito-norma">IRAM 1501 / IRAM 1505</div></div>
+<div class="otro-requisito"><div class="otro-requisito-nombre">Durabilidad — sulfato de sodio</div><div class="otro-requisito-valor">≤ 12</div><div class="otro-requisito-norma">IRAM 1525</div></div>
+<div class="otro-requisito"><div class="otro-requisito-nombre">Densidad relativa / aparente</div><div class="otro-requisito-valor">Determinación obligatoria</div><div class="otro-requisito-norma">IRAM 1533</div></div>
+</div>
+<div class="fuente-requisito">Fuente: Sección 6A — Tablas 6, 7 y 8</div>
+</div>
+</div>
+
+<div class="material-acordeon">
+<button class="material-titulo" onclick="toggleMaterial('materialAgregadoFino', this)"><span>Agregado fino</span><span class="flecha-material">⌄</span></button>
+<div id="materialAgregadoFino" class="material-contenido oculto">
+<div class="subtitulo-requisito">Requisitos generales</div>
+<table class="tabla-requisitos tabla-requisitos-material">
+<thead><tr><th>Requisito</th><th>Capa</th><th>P1</th><th>P2</th></tr></thead>
+<tbody>
+<tr><td rowspan="2"><strong>Equivalente de arena</strong><span class="norma-tabla">IRAM 1682</span></td><td>Rodamiento</td><td>≥ 50</td><td>≥ 50</td></tr>
+<tr><td>Base</td><td>≥ 40</td><td>≥ 40</td></tr>
+</tbody>
+</table>
+<div class="subtitulo-requisito">Otros requisitos</div>
+<div class="lista-otros-requisitos">
+<div class="otro-requisito"><div class="otro-requisito-nombre">Azul de metileno</div><div class="otro-requisito-valor">≤ 7 g/kg</div><div class="otro-requisito-norma">UNE-EN 933-9 — Anexo A</div></div>
+<div class="otro-requisito"><div class="otro-requisito-nombre">Granulometría</div><div class="otro-requisito-valor">Debe permitir cumplir la Fórmula de Obra</div><div class="otro-requisito-norma">IRAM 1501 / IRAM 1505</div></div>
+<div class="otro-requisito"><div class="otro-requisito-nombre">Densidad</div><div class="otro-requisito-valor">Determinación obligatoria</div><div class="otro-requisito-norma">IRAM 1520</div></div>
+</div>
+<div class="nota-requisito">El ensayo de Azul de Metileno se realiza cuando el Equivalente de Arena resulte menor a 50 % y mayor o igual a 40 %.</div>
+<div class="nota-requisito">En capas de rodamiento, los agregados finos no deben provenir de canteras de naturaleza caliza.</div>
+<div class="fuente-requisito">Fuente: Sección 6A — Tabla 9</div>
+</div>
+</div>
+
+<div class="material-acordeon">
+<button class="material-titulo" onclick="toggleMaterial('materialEsqueleto', this)"><span>Esqueleto granular</span><span class="flecha-material">⌄</span></button>
+<div id="materialEsqueleto" class="material-contenido oculto">
+<table class="tabla-requisitos tabla-requisitos-material">
+<thead><tr><th>Requisito</th><th>Capa</th><th>P1</th><th>P2</th></tr></thead>
+<tbody>
+<tr><td rowspan="2"><strong>Agregado no triturado</strong></td><td>Rodamiento</td><td>0 %</td><td>0 %</td></tr>
+<tr><td>Base</td><td>&lt; 5 %</td><td>≤ 8 %</td></tr>
+</tbody>
+</table>
+<div class="fuente-requisito">Fuente: Sección 6A — Tabla 10</div>
+</div>
+</div>
+
+<div class="material-acordeon">
+<button class="material-titulo" onclick="toggleMaterial('materialFiller', this)"><span>Filler / Cal hidratada</span><span class="flecha-material">⌄</span></button>
+<div id="materialFiller" class="material-contenido oculto">
+<table class="tabla-requisitos">
+<thead><tr><th>Tamiz</th><th>% que pasa</th></tr></thead>
+<tbody>
+<tr><td>425 µm — Nº 40</td><td>100 %</td></tr>
+<tr><td>150 µm — Nº 100</td><td>&gt; 90 %</td></tr>
+<tr><td>75 µm — Nº 200</td><td>&gt; 75 %</td></tr>
+</tbody>
+</table>
+<div class="info-requisito">La cal hidratada debe ser homogénea, seca, libre de grumos y cumplir IRAM 1508.</div>
+</div>
+</div>
+
+<div class="material-acordeon">
+<button class="material-titulo" onclick="toggleMaterial('materialLigante', this)"><span>Ligante asfáltico</span><span class="flecha-material">⌄</span></button>
+<div id="materialLigante" class="material-contenido oculto">
+<div class="info-requisito"><strong>Convencional</strong><br><br>Debe cumplir ASTM D3381 — Tabla 4.<br><br>El grado debe estar definido en el Pliego de Especificaciones Técnicas Particulares.</div>
+<div class="info-requisito"><strong>Modificado</strong><br><br>Debe cumplir IRAM 6596.<br><br>El tipo debe estar definido en el Pliego de Especificaciones Técnicas Particulares.</div>
+</div>
+</div>
+
+</div>
+
+            </div>
+
+<!-- FORMULA DE OBRA -->
+
+            <div class="grupo-requisito">
+
+                <button class="grupo-requisito-titulo"
+                        onclick="toggleRequisito('reqFormula')">
+                    <span>Fórmula de Obra</span>
+                    <span>⌄</span>
+                </button>
+
+                <div id="reqFormula"
+                     class="grupo-requisito-contenido oculto">
+
+
+                    <div class="subtitulo-requisito">
+                        Relación espesor / tamaño máximo
+                    </div>
+
+                    <div class="info-requisito">
+
+                        El espesor de la capa debe cumplir:
+
+                        <br><br>
+
+                        <strong>
+                            e &gt; 2,5 × TM
+                        </strong>
+
+                        <br>
+
+                        <strong>
+                            e ≤ 6,0 × TM
+                        </strong>
+
+                    </div>
+
+
+                    <div class="subtitulo-requisito">
+                        Husos granulométricos
+                    </div>
+
+                    <table class="tabla-requisitos">
+
+                        <thead>
+                            <tr>
+                                <th>ASTM</th>
+                                <th>Abertura</th>
+                                <th>D12</th>
+                                <th>D19</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            <tr>
+                                <td><strong>1"</strong></td>
+                                <td>25 mm</td>
+                                <td>—</td>
+                                <td>100</td>
+                            </tr>
+
+                            <tr>
+                                <td><strong>3/4"</strong></td>
+                                <td>19 mm</td>
+                                <td>100</td>
+                                <td>83–100</td>
+                            </tr>
+
+                            <tr>
+                                <td><strong>1/2"</strong></td>
+                                <td>12,5 mm</td>
+                                <td>80–97</td>
+                                <td>—</td>
+                            </tr>
+
+                            <tr>
+                                <td><strong>3/8"</strong></td>
+                                <td>9,5 mm</td>
+                                <td>67–84</td>
+                                <td>55–75</td>
+                            </tr>
+
+                            <tr>
+                                <td><strong>Nº 4</strong></td>
+                                <td>4,75 mm</td>
+                                <td>48–68</td>
+                                <td>42–60</td>
+                            </tr>
+
+                            <tr>
+                                <td><strong>Nº 8</strong></td>
+                                <td>2,36 mm</td>
+                                <td>30–48</td>
+                                <td>29–47</td>
+                            </tr>
+
+                            <tr>
+                                <td><strong>Nº 30</strong></td>
+                                <td>600 µm</td>
+                                <td>16–29</td>
+                                <td>15–29</td>
+                            </tr>
+
+                            <tr>
+                                <td><strong>Nº 50</strong></td>
+                                <td>300 µm</td>
+                                <td>11–23</td>
+                                <td>9–21</td>
+                            </tr>
+
+                            <tr>
+                                <td><strong>Nº 200</strong></td>
+                                <td>75 µm</td>
+                                <td>4–8</td>
+                                <td>4–8</td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                    <div class="nota-requisito">
+                        Cuando el tipo de esqueleto granular,
+                        ligante, ubicación o Índice de Prestación
+                        no esté definido, debe considerarse
+                        la condición más exigente.
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- EQUIPOS -->
+
+            <div class="grupo-requisito">
+
+                <button class="grupo-requisito-titulo"
+                        onclick="toggleRequisito('reqEquipos')">
+                    <span>Equipos</span>
+                    <span>⌄</span>
+                </button>
+
+                <div id="reqEquipos"
+                     class="grupo-requisito-contenido oculto">
+
+                    <div class="control-item">
+                        Tanques de almacenamiento
+                    </div>
+
+                    <div class="control-item">
+                        Planta asfáltica
+                    </div>
+
+                    <div class="control-item">
+                        Equipos de transporte
+                    </div>
+
+                    <div class="control-item">
+                        Equipo de transferencia
+                    </div>
+
+                    <div class="control-item">
+                        Equipo de distribución y colocación
+                    </div>
+
+                    <div class="control-item">
+                        Equipos de compactación
+                    </div>
+
+                    <div class="nota-requisito">
+                        Ningún equipo puede utilizarse en la
+                        ejecución regular si no fue previamente
+                        utilizado en el Tramo de Prueba y aprobado
+                        por el Director de Obra.
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- TRAMO DE PRUEBA -->
+
+            <div class="grupo-requisito">
+
+                <button class="grupo-requisito-titulo"
+                        onclick="toggleRequisito('reqTramo')">
+                    <span>Tramo de prueba</span>
+                    <span>⌄</span>
+                </button>
+
+                <div id="reqTramo"
+                     class="grupo-requisito-contenido oculto">
+
+                    <div class="info-requisito">
+                        Antes de la ejecución regular debe
+                        realizarse el Tramo de Prueba conforme
+                        a los requisitos de la Sección 6A.
+                    </div>
+
+                    <div class="nota-requisito">
+                        Al finalizar el Tramo de Prueba deben
+                        realizarse, como mínimo una vez, los
+                        ensayos previstos para el control de
+                        la unidad terminada.
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         DURANTE EJECUCION
+    ====================================================== -->
+
+    <div class="grupo-requisito">
+
+        <button class="grupo-requisito-titulo"
+                onclick="toggleRequisito('reqDurante')">
+            <span>🚧 DURANTE LA EJECUCIÓN</span>
+            <span>⌄</span>
+        </button>
+
+        <div id="reqDurante"
+             class="grupo-requisito-contenido oculto">
+
+            <div class="control-item">
+                Preparación de la superficie
+            </div>
+
+            <div class="control-item">
+                Elaboración
+            </div>
+
+            <div class="control-item">
+                Transporte
+            </div>
+
+            <div class="control-item">
+                Colocación
+            </div>
+
+            <div class="control-item">
+                Compactación
+            </div>
+
+            <div class="control-item">
+                Juntas
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         CONTROL DE CALIDAD
+    ====================================================== -->
+
+    <div class="grupo-requisito">
+
+        <button class="grupo-requisito-titulo"
+                onclick="toggleRequisito('reqCalidad')">
+            <span>🧪 CONTROL DE CALIDAD</span>
+            <span>⌄</span>
+        </button>
+
+        <div id="reqCalidad"
+             class="grupo-requisito-contenido oculto">
+
+
+            <div class="subtitulo-requisito">
+                Producción
+            </div>
+
+            <table class="tabla-requisitos">
+
+                <thead>
+                    <tr>
+                        <th>Control</th>
+                        <th>Frecuencia</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    <tr>
+                        <td>Contenido de ligante</td>
+                        <td>Cada lote</td>
+                    </tr>
+
+                    <tr>
+                        <td>Granulometría</td>
+                        <td>Cada lote</td>
+                    </tr>
+
+                    <tr>
+                        <td>Contenido de agua</td>
+                        <td>Cada 10 lotes</td>
+                    </tr>
+
+                    <tr>
+                        <td>Temperatura salida planta</td>
+                        <td>Cada transporte</td>
+                    </tr>
+
+                    <tr>
+                        <td>Aspecto visual</td>
+                        <td>Cada transporte</td>
+                    </tr>
+
+                    <tr>
+                        <td>Temperatura durante colocación</td>
+                        <td>Cada transporte</td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+
+            <div class="subtitulo-requisito">
+                Unidad terminada
+            </div>
+
+            <table class="tabla-requisitos">
+
+                <thead>
+                    <tr>
+                        <th>Control</th>
+                        <th>Frecuencia</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    <tr>
+                        <td>Vacíos medios</td>
+                        <td>Cada lote de obra</td>
+                    </tr>
+
+                    <tr>
+                        <td>Espesor de testigos</td>
+                        <td>Cada lote de obra</td>
+                    </tr>
+
+                    <tr>
+                        <td>Macrotextura</td>
+                        <td>Cada lote de obra</td>
+                    </tr>
+
+                    <tr>
+                        <td>Ancho</td>
+                        <td>Cada 100 m</td>
+                    </tr>
+
+                    <tr>
+                        <td>Perfil transversal</td>
+                        <td>Cada 100 m</td>
+                    </tr>
+
+                    <tr>
+                        <td>Regularidad superficial — IRI</td>
+                        <td>Por tramo</td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         ACEPTACION
+    ====================================================== -->
+
+    <div class="grupo-requisito">
+
+        <button class="grupo-requisito-titulo"
+                onclick="toggleRequisito('reqAceptacion')">
+            <span>✅ ACEPTACIÓN</span>
+            <span>⌄</span>
+        </button>
+
+        <div id="reqAceptacion"
+             class="grupo-requisito-contenido oculto">
+
+
+            <div class="subtitulo-requisito">
+                Contenido de ligante
+            </div>
+
+            <div class="estado-aceptacion estado-ok">
+                ✓ Diferencia ≤ ±0,30 % respecto a la
+                Fórmula de Obra → ACEPTACIÓN
+            </div>
+
+            <div class="estado-aceptacion estado-advertencia">
+                ⚠ Diferencia &gt; ±0,30 % y ≤ ±0,50 %
+                → ACEPTACIÓN CON DESCUENTO DEL 10 %
+            </div>
+
+            <div class="estado-aceptacion estado-rechazo">
+                ✕ Diferencia &gt; ±0,50 %
+                → RECHAZO
+            </div>
+
+
+            <div class="subtitulo-requisito">
+                Vacíos de producción
+            </div>
+
+            <div class="estado-aceptacion estado-ok">
+                ✓ Diferencia ≤ ±1,5 % respecto a la
+                Fórmula de Obra → ACEPTACIÓN
+            </div>
+
+            <div class="estado-aceptacion estado-advertencia">
+                ⚠ Diferencia &gt; ±1,5 % y ≤ ±2,5 %
+                → PENALIDAD DEL 5 %
+            </div>
+
+            <div class="estado-aceptacion estado-rechazo">
+                ✕ Diferencia &gt; ±2,5 %
+                → RECHAZO
+            </div>
+
+
+            <div class="subtitulo-requisito">
+                Estabilidad
+            </div>
+
+            <div class="estado-aceptacion estado-ok">
+                ✓ Cumple el mínimo de la Fórmula de Obra
+                → ACEPTACIÓN
+            </div>
+
+            <div class="estado-aceptacion estado-advertencia">
+                ⚠ No cumple el mínimo pero es ≥ 90 %
+                del valor mínimo → DESCUENTO DEL 5 %
+            </div>
+
+            <div class="estado-aceptacion estado-rechazo">
+                ✕ Menor al 90 % del mínimo
+                → RECHAZO
+            </div>
+
+
+            <div class="subtitulo-requisito">
+                Otros controles de aceptación
+            </div>
+
+            <div class="control-item">
+                Granulometría
+            </div>
+
+            <div class="control-item">
+                Temperatura
+            </div>
+
+            <div class="control-item">
+                Vacíos de unidad terminada
+            </div>
+
+            <div class="control-item">
+                Espesor
+            </div>
+
+            <div class="control-item">
+                Ancho y perfil transversal
+            </div>
+
+            <div class="control-item">
+                Regularidad superficial — IRI
+            </div>
+
+            <div class="control-item">
+                Macrotextura
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ===================================================== -->
+<!-- DETALLE DE CONTROL -->
+<!-- ===================================================== -->
+
+<div id="pantallaDetalleControl" class="pantalla oculto">
+  <div class="contenedor">
+    <div class="tarjeta">
+      <button class="volver" onclick="volverUnaPantalla()">← Volver</button>
+      <div class="badge-mezcla" id="badgeActividadPliego">SECCIÓN</div>
+      <h1 id="tituloActividad">Actividad</h1>
+      <p class="subtitulo" id="descripcionActividad">Controles de obra según el Pliego General.</p>
+      <div class="proyecto-info">Proyecto: <strong id="obraDetalle">Ruta 8 – Tramo 3</strong></div>
+
+      <div class="aviso-pliego">
+        Esta pantalla organiza los controles por momento de obra. Los valores particulares del proyecto
+        deben contrastarse con el Pliego Particular y la documentación aprobada del proyecto.
+      </div>
+
+      <div id="contenidoActividadPliego" class="requisitos-mezcla"></div>
+
+      <div class="fuente-requisito" id="fuenteActividadPliego"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+
+
+/* =====================================================
+   LOGIN
+===================================================== */
+
+function iniciarSesion() {
+
+    const usuario =
+        document.getElementById("usuario").value;
+
+    if (usuario.trim() === "") {
+
+        alert("Ingresá tu usuario.");
+
+        return;
+    }
+
+    document.getElementById("nombreUsuario").innerText =
+        "Bienvenido, " + usuario;
+
+    mostrarPantalla("pantallaInicio");
+}
+
+
+/* =====================================================
+   CERRAR SESION
+===================================================== */
+
+function cerrarSesion() {
+
+    mostrarPantalla("pantallaLogin");
+
+    document.getElementById("usuario").value = "";
+
+    document.getElementById("password").value = "";
+}
+
+
+/* =====================================================
+   MOSTRAR PANTALLA
+===================================================== */
+
+let historialPantallas = [];
+let pantallaActual = null;
+let navegandoHaciaAtras = false;
+
+function mostrarPantalla(id) {
+    const destino = document.getElementById(id);
+    if (!destino) return;
+
+    if (pantallaActual && pantallaActual !== id && !navegandoHaciaAtras) {
+        historialPantallas.push(pantallaActual);
+    }
+
+    document.querySelectorAll(".pantalla").forEach(function(pantalla) {
+        pantalla.classList.add("oculto");
+    });
+
+    destino.classList.remove("oculto");
+    pantallaActual = id;
+    navegandoHaciaAtras = false;
+}
+
+function volverUnaPantalla() {
+    if (historialPantallas.length === 0) return;
+
+    const anterior = historialPantallas.pop();
+    navegandoHaciaAtras = true;
+    mostrarPantalla(anterior);
+}
+
+
+/* =====================================================
+   CAMBIAR PROYECTO
+===================================================== */
+
+function cambiarProyecto() {
+
+    const selector =
+        document.getElementById("selectorProyecto");
+
+    const proyecto =
+        selector.value;
+
+
+    if (proyecto === "crear") {
+
+        const nuevoProyecto =
+            prompt(
+                "Ingresá el nombre del nuevo proyecto:"
+            );
+
+
+        if (
+            nuevoProyecto !== null &&
+            nuevoProyecto.trim() !== ""
+        ) {
+
+            const nuevaOpcion =
+                document.createElement("option");
+
+            nuevaOpcion.value =
+                nuevoProyecto;
+
+            nuevaOpcion.text =
+                nuevoProyecto;
+
+            selector.add(nuevaOpcion);
+
+            selector.value =
+                nuevoProyecto;
+
+            actualizarProyecto(nuevoProyecto);
+
+        }
+
+        else {
+
+            selector.value =
+                "Ruta 8 – Tramo 3";
+
+        }
+
+        return;
+    }
+
+
+    actualizarProyecto(proyecto);
+}
+
+
+function actualizarProyecto(proyecto) {
+
+    document
+        .getElementById("proyectoActivo")
+        .innerHTML =
+        "Proyecto activo: <strong>" +
+        proyecto +
+        "</strong>";
+
+}
+
+
+/* =====================================================
+   DOCUMENTOS
+===================================================== */
+
+function mostrarDocumentos() {
+
+    const proyecto =
+        document.getElementById("selectorProyecto").value;
+
+    document
+        .getElementById("proyectoDocumentos")
+        .innerText =
+        proyecto;
+
+    mostrarPantalla("pantallaDocumentos");
+}
+
+
+function cargarDocumento() {
+
+    const nombre =
+        document
+            .getElementById("nombreDocumento")
+            .value;
+
+    const archivo =
+        document
+            .getElementById("archivoDocumento")
+            .files[0];
+
+
+    if (!nombre || !archivo) {
+
+        alert(
+            "Ingresá el nombre y seleccioná un archivo."
+        );
+
+        return;
+    }
+
+
+    alert(
+        "Documento cargado correctamente.\n\n" +
+        "En la versión definitiva quedará almacenado " +
+        "dentro del proyecto y podrá vincularse con " +
+        "controles, ensayos y consultas."
+    );
+
+
+    document
+        .getElementById("nombreDocumento")
+        .value = "";
+
+    document
+        .getElementById("archivoDocumento")
+        .value = "";
+
+}
+
+
+/* =====================================================
+   CONSULTAS
+===================================================== */
+
+function mostrarConsultas() {
+
+    const proyecto =
+        document.getElementById("selectorProyecto").value;
+
+    document
+        .getElementById("proyectoConsulta")
+        .innerText =
+        proyecto;
+
+    mostrarPantalla("pantallaConsultas");
+}
+
+
+function realizarConsulta() {
+
+    const pregunta =
+        document.getElementById("pregunta").value;
+
+    if (pregunta.trim() === "") {
+
+        alert("Escribí una consulta.");
+
+        return;
+    }
+
+
+    const resultado =
+        document.getElementById("resultadoConsulta");
+
+
+    resultado.innerHTML = `
+
+        <strong>Resultado de la consulta</strong>
+
+        <br><br>
+
+        Esta es una respuesta de demostración.
+        En la versión definitiva la aplicación buscará
+        en los documentos cargados en el proyecto y
+        en los manuales seleccionados.
+
+        <br><br>
+
+        <strong>Fuente:</strong>
+        Documento del proyecto
+
+        <br>
+
+        <strong>Artículo:</strong>
+        5.2
+
+        <br>
+
+        <strong>Página:</strong>
+        47
+
+    `;
+
+
+    resultado.classList.remove("oculto");
+}
+
+
+/* =====================================================
+   ENSAYOS
+===================================================== */
+
+function mostrarEnsayos() {
+
+    mostrarPantalla("pantallaEnsayos");
+}
+
+
+function mostrarResultadoEnsayo() {
+
+    document
+        .getElementById("resultadoEnsayo")
+        .classList.remove("oculto");
+
+}
+
+
+/* =====================================================
+   QUE DEBO CONTROLAR
+===================================================== */
+
+function mostrarControles() {
+
+    const proyecto =
+        document.getElementById("selectorProyecto").value;
+
+    document
+        .getElementById("proyectoControles")
+        .innerText =
+        proyecto;
+
+    mostrarPantalla("pantallaControles");
+}
+
+
+/* =====================================================
+   TIPOS Y DETALLE DE MEZCLA ASFALTICA
+===================================================== */
+function mostrarTiposMezcla() {
+    const proyecto = document.getElementById("selectorProyecto").value;
+    document.getElementById("proyectoMezclas").innerText = proyecto;
+    mostrarPantalla("pantallaTiposMezcla");
+}
+
+function mostrarDetalleMezcla(codigo, variante) {
+    const proyecto = document.getElementById("selectorProyecto").value;
+    document.getElementById("proyectoDetalleMezcla").innerText = proyecto;
+    const titulo = variante ? codigo + " – " + variante : codigo;
+    document.getElementById("tituloMezcla").innerText = titulo;
+    const nombres = {
+      "CAC":"Concreto asfáltico en caliente", "CAS":"Concreto asfáltico semicaliente",
+      "CAC-R":"Concreto asfáltico en caliente con aporte de RAP", "CAS-R":"Concreto asfáltico semicaliente con aporte de RAP",
+      "MAAC":"Mezcla arena-asfalto en caliente", "MAAS":"Mezcla arena-asfalto semicaliente",
+      "MAC-F":"Microaglomerado asfáltico tipo F en caliente", "MAS-F":"Microaglomerado asfáltico tipo F semicaliente"
+    };
+    document.getElementById("descripcionMezcla").innerText = nombres[codigo] || "Mezcla asfáltica";
+    document.getElementById("tipoLiganteAviso").innerText = variante ? variante.toLowerCase() : "la mezcla seleccionada";
+    mostrarPantalla("pantallaDetalleMezcla");
+}
+
+/* =====================================================
+   DETALLE DE CONTROL
+===================================================== */
+
+function mostrarDetalleControl(actividad) {
+
+    const proyecto =
+        document.getElementById("selectorProyecto").value;
+
+
+    document
+        .getElementById("obraDetalle")
+        .innerText =
+        proyecto;
+
+
+    const titulo =
+        document.getElementById("tituloActividad");
+
+
+    if (actividad === "asfaltica") {
+
+        titulo.innerText =
+            "Mezcla asfáltica";
+
+    }
+
+    else if (actividad === "cementado") {
+
+        titulo.innerText =
+            "Cementado";
+
+    }
+
+    else if (actividad === "granular") {
+
+        titulo.innerText =
+            "Granular";
+
+    }
+
+
+    mostrarPantalla("pantallaDetalleControl");
+}
+
+
+/* =====================================================
+   GUARDAR CONTROL
+===================================================== */
+
+function guardarControl() {
+
+    alert(
+        "Control guardado correctamente.\n\n" +
+        "En la versión definitiva este registro quedará " +
+        "asociado al proyecto, usuario, fecha, actividad " +
+        "y documentos utilizados."
+    );
+
+}
+
+
+/* =====================================================
+   VOLVER
+===================================================== */
+
+function volverInicio() {
+
+    mostrarPantalla("pantallaInicio");
+}
+
+
+
+/* =====================================================
+   DESPLEGAR REQUISITOS
+===================================================== */
+function toggleRequisito(id) {
+    const elemento = document.getElementById(id);
+    if (!elemento) return;
+    elemento.classList.toggle("oculto");
+}
+
+
+/* =====================================================
+   ACORDEÓN DE MATERIALES
+===================================================== */
+function toggleMaterial(id, boton) {
+    const seleccionado = document.getElementById(id);
+    if (!seleccionado) return;
+
+    const estabaAbierto = !seleccionado.classList.contains("oculto");
+
+    document.querySelectorAll(".material-contenido").forEach(function(el) {
+        el.classList.add("oculto");
+    });
+    document.querySelectorAll(".material-titulo").forEach(function(btn) {
+        btn.classList.remove("activo");
+    });
+
+    if (!estabaAbierto) {
+        seleccionado.classList.remove("oculto");
+        boton.classList.add("activo");
+    }
+}
+
+function toggleSubcaso(id, boton) {
+    const seleccionado = document.getElementById(id);
+    if (!seleccionado) return;
+
+    const estabaAbierto = !seleccionado.classList.contains("oculto");
+
+    document.querySelectorAll(".subcaso-contenido").forEach(function(el) {
+        el.classList.add("oculto");
+    });
+    document.querySelectorAll(".subcaso-titulo").forEach(function(btn) {
+        btn.classList.remove("activo");
+    });
+
+    if (!estabaAbierto) {
+        seleccionado.classList.remove("oculto");
+        boton.classList.add("activo");
+    }
+}
+
+
+const actividadesAcopios = {
+"A1": {t:"Acopio de agregados pétreos", f:"Acopios · control transversal",
+ antes:["Verificar procedencia, identificación y aceptación del material antes de incorporarlo a obra.","Definir zonas separadas por fracción y por origen, con piso firme y drenaje adecuado.","Evitar contacto con suelo vegetal, barro, residuos u otros materiales contaminantes."],
+ durante:["Mantener separadas las distintas fracciones y evitar mezcla entre acopios.","Minimizar segregación durante descarga, formación, carga y manipulación.","Controlar humedad cuando pueda afectar la dosificación o elaboración.","Evitar acopios excesivamente altos o formas de descarga que favorezcan segregación."],
+ calidad:["Verificar visualmente homogeneidad, limpieza y ausencia de contaminación.","Realizar los ensayos del material con la frecuencia definida por el Pliego/Plan de Calidad.","Separar e identificar lotes anómalos hasta su evaluación."],
+ aceptacion:["Material correctamente identificado y trazable.","Sin contaminación ni mezcla entre fracciones.","Resultados de control conformes a la especificación aplicable."],
+ nota:"El Manual 2024 recomienda controlar los materiales desde su recepción y durante los acopios; los límites de aceptación se toman siempre del Pliego aplicable."},
+
+"A2": {t:"Acopio de suelos y materiales granulares", f:"Acopios · control transversal",
+ antes:["Verificar origen autorizado y aptitud del material.","Preparar zona de acopio limpia, estable y con drenaje.","Separar materiales de distinta procedencia o calidad."],
+ durante:["Evitar contaminación con suelo vegetal y materiales extraños.","Controlar cambios visibles de granulometría, plasticidad, humedad o naturaleza del material.","Evitar segregación y acumulaciones de agua.","Mantener identificación del origen/lote."],
+ calidad:["Inspección visual sistemática del acopio.","Caracterización y ensayos exigidos por el Pliego.","Control de humedad cuando corresponda al proceso constructivo."],
+ aceptacion:["Homogeneidad compatible con el material aprobado.","Sin contaminación ni degradación apreciable.","Ensayos conformes a la especificación de la tarea donde será utilizado."],
+ nota:"Para bases y subbases el Manual destaca especialmente evitar contaminación y segregación y verificar la homogeneidad mediante ensayos."},
+
+"A3": {t:"Acopio de ligantes asfálticos y emulsiones", f:"Acopios · control transversal",
+ antes:["Verificar certificado, tipo/grado, proveedor y trazabilidad de cada partida.","Identificar tanques y líneas para impedir mezcla de productos incompatibles.","Verificar limpieza, estanqueidad y condiciones del sistema de almacenamiento."],
+ durante:["Controlar temperatura de almacenamiento cuando corresponda.","Evitar contaminación con agua, solventes u otros ligantes.","Mantener identificación del producto y registro de ingresos/consumos.","En emulsiones, evitar condiciones de almacenamiento que produzcan rotura o deterioro."],
+ calidad:["Muestrear y ensayar según Pliego y Plan de Calidad.","Verificar correspondencia entre producto recibido y producto aprobado.","Segregar partidas dudosas hasta obtener conformidad."],
+ aceptacion:["Producto identificado, trazable y sin contaminación.","Propiedades conformes a la especificación contractual.","Condiciones de almacenamiento compatibles con el producto."],
+ nota:"Los requisitos particulares del ligante y sus ensayos se toman del Pliego de la tarea correspondiente."},
+
+"A4": {t:"Acopio de RAP / material fresado", f:"Acopios · control transversal",
+ antes:["Definir procedencia y sector de almacenamiento del RAP.","Separar RAP de distinta naturaleza cuando pueda afectar la Fórmula de Obra.","Preparar superficie de acopio limpia y drenada."],
+ durante:["Evitar contaminación con suelo, residuos y materiales ajenos.","Controlar segregación por tamaños y formación de terrones.","Controlar humedad del RAP cuando sea relevante para la producción.","Mantener trazabilidad entre origen, acopio y utilización."],
+ calidad:["Caracterizar granulometría, contenido y propiedades del ligante recuperado según el Pliego aplicable.","Controlar homogeneidad del material almacenado.","Identificar y aislar material no apto."],
+ aceptacion:["RAP homogéneo dentro de los criterios de la Fórmula de Obra.","Sin contaminación apreciable.","Caracterización conforme para el porcentaje de incorporación previsto."],
+ nota:"El RAP se considera un material de la mezcla: su aceptación final depende de los requisitos específicos de la Sección de mezclas con RAP."},
+
+"A5": {t:"Acopio de cemento, cal y filler", f:"Acopios · control transversal",
+ antes:["Verificar tipo, proveedor, lote, certificados y fecha de recepción.","Disponer almacenamiento protegido de humedad y contaminación.","Separar productos de distinto tipo o procedencia."],
+ durante:["Mantener envases/silos identificados y protegidos.","Evitar hidratación, formación de grumos y contaminación.","Controlar fechas de recepción y rotación de existencias."],
+ calidad:["Inspección visual del estado del producto.","Ensayos/certificados exigidos por la especificación.","Segregar material deteriorado o de identificación dudosa."],
+ aceptacion:["Producto seco, homogéneo e identificado.","Sin grumos o deterioro incompatible con su uso.","Cumplimiento de requisitos del Pliego correspondiente."],
+ nota:"Para filler y cal hidratada, los valores granulométricos y normas específicas siguen siendo los establecidos en el Pliego de mezclas."},
+
+"A6": {t:"Acopio de acero, barras y materiales para hormigón", f:"Acopios · control transversal",
+ antes:["Verificar diámetros, tipos de acero, certificados y cantidades.","Preparar almacenamiento que evite contaminación, deformación o pérdida de identificación.","Separar pasadores, barras de unión y otras armaduras."],
+ durante:["Mantener barras limpias y correctamente identificadas.","Proteger materiales de juntas, membranas, fibras y aditivos según recomendaciones del fabricante.","Controlar vencimientos y condiciones de almacenamiento de aditivos."],
+ calidad:["Verificar dimensiones y tipo de cada elemento antes de su colocación.","Inspeccionar limpieza, corrosión perjudicial, deformaciones y estado de recubrimientos.","Comprobar certificados/ensayos exigidos."],
+ aceptacion:["Material coincidente con proyecto y especificaciones.","Estado de conservación adecuado para su colocación.","Trazabilidad y documentación disponibles."],
+ nota:"El Manual 2024 recomienda verificar el acopio suficiente de barras y el correcto estado e identificación antes del hormigonado."}
+};
+
+const actividadesPliego = {
+"2A": {t:"Limpieza de terreno", f:"Sección 2A · Movimiento de suelo", validada:true, contenido:`
+<div class="actividad-validada">
+<h3>¿Qué abarca?</h3>
+<p>Comprende la limpieza y escarificación del terreno, desbosque y destronque, retiro de raíces, alambrados y obstáculos, remoción de suelo vegetal, transporte y disposición de materiales, perfilado, relimpiezas, señalización y desvíos necesarios, y limpieza de cursos de agua cuando corresponda.</p>
+<h3>¿Qué debo controlar?</h3>
+<h4>🌱 Ancho de limpieza</h4><ul><li>Dentro de la faja de excavación o terraplén: <strong>límite de obra + 2,00 m</strong>.</li><li>En suelos fácilmente erosionables no se debe exceder innecesariamente ese ancho.</li><li>Árboles, troncos y arbustos: retirar al menos <strong>2,00 m adicionales por fuera del límite de ese ancho de limpieza</strong>, cuando corresponda.</li></ul>
+<h4>🌳 Interior de curvas</h4><p>Según Proyecto o Director de Obra. En ausencia de indicación, la distancia desde el eje hasta el límite de la zona de limpieza debe ser de <strong>20 m</strong>.</p>
+<h4>🌲 Árboles y raíces</h4><ul><li>Cuando la altura del terraplén sea <strong>&lt; 1,00 m</strong>, y en todas las zonas de excavación, los árboles deben ser arrancados de raíz.</li><li>Proteger los árboles que se encuentren fuera de la zona de limpieza.</li></ul>
+<h4>✂️ Poda</h4><ul><li>Podar ramas que se proyecten sobre la plataforma a una altura <strong>&lt; 5,00 m</strong>.</li><li>Cortes de diámetro <strong>&gt; 3 cm</strong>: proteger con pintura asfáltica.</li></ul>
+<h4>🏗️ Demoliciones</h4><p>Las fundaciones de estructuras existentes deben retirarse hasta al menos <strong>1,00 m por debajo</strong> de la mínima elevación factible de construcción.</p>
+<h4>🚚 Material retirado</h4><p>Debe depositarse en un lugar propuesto por el Contratista y aprobado por el Director de Obra.</p>
+<h4>📐 Ancho, perfil transversal y terminación</h4><ul><li>Control cada <strong>25 m</strong>.</li><li>El ancho terminado nunca puede ser inferior al teórico de Proyecto.</li><li>Cotas y pendientes: tolerancia <strong>± 20 mm</strong>.</li><li>Pendiente mínima de drenaje: <strong>1 %</strong> cuando corresponda.</li><li>La superficie debe ser homogénea, sin restos vegetales, alambrados, estructuras, pozos, excavaciones localizadas ni otros defectos.</li></ul>
+<h4>🌧️ Precipitaciones</h4><p>No ejecutar los trabajos durante precipitaciones, salvo autorización expresa del Director de Obra.</p>
+<h3>📏 Medición</h3><p>Las demoliciones, retiro de alambrados, árboles y raíces y las relimpiezas necesarias forman parte de la tarea según el Pliego. No corresponde pago por sobreanchos ejecutados fuera de lo requerido.</p>
+<div class="subtitulo-app">✅ Criterio de aceptación</div>
+<ul><li><strong>Ancho:</strong> debe cumplir el ancho requerido; los lugares no conformes deben ser corregidos por el Contratista.</li><li><strong>Evaluación visual:</strong> superficie homogénea y libre de restos, obstáculos, pozos y defectos; de no cumplir, debe corregirse.</li><li><strong>Perfil transversal:</strong> verificar cada 25 m, con tolerancia de cotas y pendientes de ±20 mm y las condiciones de drenaje exigidas.</li></ul>
+</div>`},
+
+"2B": {t:"Excavaciones", f:"Sección 2B · Movimiento de suelo", validada:true, contenido:`
+<div class="actividad-validada">
+<h3>¿Qué abarca?</h3><p>Comprende las excavaciones necesarias para alcanzar las cotas y secciones del Proyecto; apertura, profundización o rectificación de cunetas, zanjas y canales; destape de zonas de préstamo; utilización de materiales excavados en terraplenes, rellenos o banquinas; y las tareas de conformación, perfilado y conservación correspondientes.</p>
+<h3>¿Qué debo controlar?</h3>
+<h4>1. Superficie previa</h4><p><strong>Previa ejecución de las tareas de excavación, la superficie del terreno se debe encontrar limpia y aprobada por el Director de obra.</strong></p>
+<h4>2. 📍 Relevamiento topográfico</h4><p><strong>Se debe presentar previo al inicio de los trabajos, un relevamiento topográfico</strong> de la infraestructura existente.</p><ul><li>Precisión horizontal: <strong>± 1 cm</strong>.</li><li>Precisión vertical: <strong>± 1,5 cm</strong>.</li><li>Como mínimo: alineación, perfil longitudinal y perfiles transversales.</li><li>Perfiles para modelo del terreno: cada <strong>25 m</strong> en recta y cada <strong>12,5 m</strong> en curvas.</li><li>Incluir accesos, caminos, calles, árboles, servicios públicos y demás elementos relevantes.</li><li>Relevamiento georreferenciado y altimetría referida al cero oficial.</li></ul>
+<h4>3. 💧 Escurrimiento de agua</h4><p>Las excavaciones destinadas al drenaje deben ejecutarse antes o simultáneamente con los restantes movimientos de suelo, asegurando el correcto escurrimiento.</p>
+<h4>4. 📐 Cota y sección de excavación</h4><p>La excavación debe ajustarse a las <strong>cotas y sección transversal indicadas en los Planos del Proyecto o por el Director de Obra</strong>.</p><div class="aviso-control"><strong>⚠️ No sobreexcavar:</strong> no se debe excavar por debajo de la cota prevista ni ampliar la sección más allá de los límites establecidos.</div>
+<h4>5. Sección transversal terminada</h4><p>Control cada <strong>25 m</strong>. La sección debe coincidir con los Planos del Proyecto y no puede ser inferior ni superior a la sección proyectada.</p>
+<h4>6. 👁️ Control visual</h4><p>Cada lote debe presentar una superficie homogénea y formas regulares que permitan la correcta medición del material.</p>
+<h4>7. 🛡️ Protección de la excavación</h4><p>Proteger la excavación frente a erosiones, socavaciones, derrumbes y deslizamientos. Ejecutar cunetas o zanjas temporales cuando sea necesario y retirar o acondicionar los materiales provenientes de derrumbes o deslizamientos.</p>
+<h4>8. 🚚 Destino del material excavado</h4><ul><li><strong>Material apto:</strong> utilizar en terraplenes u otras unidades previstas.</li><li><strong>Material a depósito:</strong> colocar en sitio propuesto por la empresa y aprobado por el Director de Obra.</li></ul>
+<h4>9. Lote de obra</h4><p>El lote se organiza según los criterios del Pliego, considerando como límite la fracción menor correspondiente; como máximo, lo ejecutado en <strong>una jornada de trabajo</strong>.</p>
+<h3>📏 Medición</h3><p>Se mide en <strong>m³</strong>, diferenciando según corresponda el material utilizado en terraplén, el material llevado a depósito y las excavaciones de préstamo. Los excesos fuera de las dimensiones de Proyecto o sin autorización del Director de Obra <strong>no se miden ni se pagan</strong>.</p>
+<div class="subtitulo-app">✅ Criterio de aceptación</div><ul><li><strong>Sección transversal:</strong> debe cumplir los Planos del Proyecto y se verifica cada 25 m. Los incumplimientos deben ser corregidos por el Contratista.</li><li><strong>Evaluación visual:</strong> debe ser homogénea y regular. Si el lote o un área parcial no cumple, se rechaza el lote o el área afectada.</li><li>Salvo indicación contraria del Director de Obra, el Contratista debe reparar, remover o reponer el sector rechazado.</li><li>Los costos de corrección o remediación son a cargo del Contratista.</li></ul>
+</div>`},
+
+"2C": {t:"Terraplén", f:"Sección 2C · Movimiento de suelo", validada:true, contenido:`
+<div class="actividad-validada">
+<h3>¿Qué abarca?</h3><p>Su ejecución comprende las operaciones siguientes:</p><ul><li><strong>Extensión de una capa de terraplén.</strong></li><li><strong>Humectación o secado del material.</strong></li><li><strong>Compactación de una capa.</strong></li><li><strong>Limpieza del terreno</strong> en las áreas en donde se construirá el terraplén y en la formación de estos utilizando los materiales aptos, de acuerdo con los Planos del Proyecto.</li></ul><p>Las operaciones se repiten las veces que sea necesario hasta alcanzar la cota de subrasante del Proyecto.</p>
+<h3>¿Qué debo controlar?</h3>
+<h4>🪨 Material del terraplén</h4><p>La mezcla de materiales debe ser <strong>aprobada por el Director de Obra antes de iniciar su ejecución</strong>. Si cambia alguno de los materiales, su procedencia o se exceden las tolerancias de calidad, la mezcla debe reformularse y someterse nuevamente a aprobación.</p>
+<div class="tabla-scroll"><table class="tabla-app"><tr><th>Requisito</th><th>Coronamiento</th><th>Cimiento / núcleo</th></tr><tr><td>CBR</td><td>≥ 5 %</td><td>≥ 3 %</td></tr><tr><td>Hinchamiento</td><td>&lt; 2 %</td><td>&lt; 3 %</td></tr><tr><td>Materia orgánica</td><td>&lt; 0,20 %</td><td>&lt; 2,00 %</td></tr><tr><td>Sales totales</td><td>&lt; 0,20 %</td><td>&lt; 1,00 %</td></tr><tr><td>Sulfatos solubles</td><td>&lt; 1,0 %</td><td>&lt; 5,00 %</td></tr><tr><td>Límite líquido (LL)</td><td>≤ 30</td><td>≤ 65</td></tr><tr><td>Índice de plasticidad (IP)</td><td>≤ 10</td><td>Si LL ≤ 40: sin requisito.<br><strong>Si LL &gt; 40: IP &lt; 0,73 × (LL − 20)</strong></td></tr></table></div><p>Además, debe determinarse: <strong>Clasificación de suelos</strong> y <strong>humedad óptima de compactación</strong>.</p>
+<h4>📏 Espesor de capas</h4><div class="dato-clave">Espesor ≤ 25 cm</div><p>El material debe extenderse con espesor homogéneo, procurando minimizar la segregación.</p>
+<h4>🟫 Superficie de apoyo</h4><p>Antes de comenzar debe realizarse la limpieza de la fundación según la Sección 2A.</p><ul><li><strong>Terraplén de altura ≤ 1,00 m:</strong> salvo indicación contraria del Proyecto, escarificar toda la superficie de fundación en un espesor mínimo de <strong>15 cm</strong>.</li><li><strong>Terraplén de altura &lt; 15 cm:</strong> arar la fundación hasta completar, incluyendo el material del terraplén, una capa compactada de <strong>≥ 15 cm</strong>, cumpliendo la Sección 2D.</li><li><strong>Sobre base y/o pavimento existente:</strong> escarificar la superficie cualquiera sea la altura del terraplén.</li></ul>
+<h4>⛰️ Laderas y ensanches</h4><ul><li>Ladera con pendiente <strong>&gt; 10 %</strong> o ensanche de terraplén existente: arar o recortar escalonadamente con cortes horizontales para asegurar trabazón.</li><li>Ladera o talud con pendiente <strong>mayor de 1:3</strong>: arar o cortar escalonadamente para generar superficies de asiento horizontales hasta alcanzar estrato firme.</li></ul>
+<h4>💧 Humedad</h4><p>Al comenzar la compactación, el material debe encontrarse suelto en todo su espesor y con la humedad dentro de las tolerancias establecidas. Humectar o secar cuando sea necesario.</p>
+<h4>🚜 Compactación</h4><ul><li>Continua y sistemática.</li><li>Normal: <strong>bordes → centro</strong>.</li><li>Curvas peraltadas: <strong>borde interno → borde alto</strong>.</li><li>Por franjas: superposición mínima <strong>15 cm</strong>.</li><li>Zonas de difícil acceso: medios adecuados, manteniendo las mismas exigencias de densidad.</li></ul>
+<h4>🪨 Terraplén con roca</h4><ul><li>Rocas de dimensión máxima <strong>&lt; 60 cm</strong>, siempre que no excedan <strong>2/3 del espesor de la capa</strong>.</li><li>Capa correspondiente: <strong>≤ 90 cm</strong>.</li><li>En los <strong>30 cm superiores</strong>: no se permiten rocas &gt; <strong>7,5 cm</strong>.</li><li>En los <strong>60 cm inmediatamente inferiores</strong>: tamaño máximo <strong>15 cm</strong>, con granulometría continua que permita controlar la densidad.</li></ul>
+<div class="subtitulo-app">🔬 Control de calidad</div>
+<h4>Lote de obra</h4><p>Para cada capa, corresponde a la fracción menor entre <strong>≤ 3.000 m³</strong> y lo ejecutado en <strong>una jornada de trabajo</strong>.</p>
+<h4>Frecuencia de controles</h4><div class="tabla-scroll"><table class="tabla-app"><tr><th>Control</th><th>Frecuencia</th></tr><tr><td>CBR</td><td>Cada 10 lotes</td></tr><tr><td>Expansión</td><td>Cada 10 lotes</td></tr><tr><td>Índice de plasticidad</td><td>Cada lote</td></tr><tr><td>Grado de compactación</td><td>Cada lote</td></tr><tr><td>Espesor</td><td>Cada lote</td></tr><tr><td>Sección transversal y pendientes</td><td>Cada 25 m</td></tr><tr><td>Prueba de carga con camión tipo</td><td>Cada lote</td></tr></table></div>
+<h4>📊 Control de compactación</h4><p>Determinar aleatoriamente <strong>≥ 3 puntos de densidad seca por lote</strong>. La diferencia entre el mayor y el menor valor debe ser <strong>&lt; 5 %</strong>.</p><p><strong>30 cm superiores del terraplén</strong></p><div class="tabla-scroll"><table class="tabla-app"><tr><th>Clasificación</th><th>A-1 / A-2 / A-3</th><th>A-4 / A-5</th><th>A-6 / A-7</th></tr><tr><td>Densidad seca mínima</td><td><strong>≥ 100 %</strong></td><td><strong>≥ 95 %</strong></td><td><strong>≥ 100 %</strong></td></tr></table></div><p><strong>Debajo de los 30 cm superiores</strong></p><div class="tabla-scroll"><table class="tabla-app"><tr><th>Clasificación</th><th>A-1 / A-2 / A-3</th><th>A-4 / A-5</th><th>A-6 / A-7</th></tr><tr><td>Densidad seca mínima</td><td><strong>≥ 95 %</strong></td><td><strong>≥ 90 %</strong></td><td><strong>≥ 95 %</strong></td></tr></table></div><p>Los porcentajes corresponden a la densidad seca respecto a la densidad seca máxima del lote de obra.</p>
+<h4>📐 Espesor terminado</h4><p>El espesor se determina sobre calicatas ubicadas a <strong>0,50 m</strong> de los puntos de ensayo indicados por el Director de Obra donde se observe material no homogéneo o segregación.</p><div class="dato-clave">Espesor medio ≥ espesor teórico de Proyecto · Cv &lt; 5 %</div>
+<h4>📐 Ancho, sección transversal, pendientes y cota</h4><p>Se controla mediante perfiles transversales cada <strong>25 m</strong>.</p><ul><li><strong>Ancho:</strong> no inferior al ancho teórico de Proyecto.</li><li><strong>Sección transversal:</strong> no inferior ni superior a la indicada en Proyecto.</li><li><strong>Pendientes:</strong> las establecidas en Proyecto.</li><li><strong>Cota:</strong> la indicada en los Planos del Proyecto o por el Director de Obra.</li></ul><p>No se permite modificar el perfil transversal ni la cota. Los incumplimientos deben removerse y readecuarse a costo del Contratista.</p>
+<h4>👁️ Control visual</h4><p>La superficie debe ser homogénea, sin segregación, manchas de suelos cohesivos ni otros defectos visibles.</p>
+<div class="subtitulo-app">📏 Medición</div><p>Se mide en <strong>m³ compactados ejecutados</strong>: longitud × ancho × espesor. Se paga por m³ terminado según los precios unitarios del contrato.</p>
+<div class="subtitulo-app">✅ Criterio de aceptación</div><ul><li><strong>Compactación:</strong> si la densidad media es inferior a la exigida, se rechaza el lote; recompactar o reponer, salvo indicación contraria del Director de Obra.</li><li><strong>Espesor:</strong> requisito: espesor medio ≥ Proyecto y Cv &lt; 5 %. El Pliego establece rechazo si el espesor medio &lt; Proyecto o si <strong>Cv &gt; 8 %</strong>.</li><li><strong>Ancho, sección transversal, pendientes y cota:</strong> los sectores no conformes deben corregirse por cuenta del Contratista.</li><li><strong>Evaluación visual:</strong> si no cumple, se rechaza el lote o el área parcial afectada; reparar y/o demoler y reponer salvo indicación contraria del Director de Obra.</li><li>Todos los costos de remediación son a cargo del Contratista.</li></ul>
+</div>`},
+
+"2D": {t:"Preparación de subrasante", f:"Sección 2D · Movimiento de suelo",
+ antes:["Verificar condición del terreno y cotas de proyecto.","Identificar sectores blandos, inestables o con material inadecuado.","Verificar equipos de escarificado, humectación y compactación."],
+ durante:["Escarificar y homogeneizar cuando corresponda.","Ajustar humedad.","Compactar y perfilar la subrasante.","Corregir zonas inestables antes de recibir la capa superior."],
+ calidad:["Control de humedad y compactación.","Control de cota, ancho y perfil.","Evaluación visual de uniformidad y estabilidad."],
+ aceptacion:["Subrasante estable y uniforme.","Compactación y geometría conformes."]},
+
+"2E": {t:"Recubrimiento con suelo seleccionado", f:"Sección 2E · Movimiento de suelo",
+ antes:["Verificar requisitos y procedencia del suelo seleccionado.","Aprobar fórmula/propuesta de materiales cuando corresponda.","Verificar superficie de apoyo y equipos."],
+ durante:["Controlar extendido por capas.","Controlar humedad y compactación.","Controlar espesor y regularidad de cada capa."],
+ calidad:["Caracterización del suelo.","Control de humedad y densidad.","Control geométrico de la capa terminada."],
+ aceptacion:["Material conforme.","Compactación conforme.","Espesor, cotas y perfil conformes."]},
+
+"2G": {t:"Recubrimiento de taludes y banquinas", f:"Sección 2G · Movimiento de suelo",
+ antes:["Verificar zonas, espesores y materiales previstos.","Comprobar condición de la superficie a recubrir."],
+ durante:["Controlar distribución uniforme del material.","Controlar perfilado y terminación de taludes y banquinas.","Evitar erosiones y segregaciones durante la ejecución."],
+ calidad:["Control visual y geométrico.","Verificar espesores y terminación donde corresponda."],
+ aceptacion:["Cobertura continua y terminación conforme.","Geometría conforme al proyecto."]},
+
+"2H": {t:"Mejoramiento con cal y LH", f:"Sección 2H · Movimiento de suelo",
+ antes:["Verificar suelo, cal o ligante hidráulico y agua.","Verificar dosificación/fórmula aprobada.","Verificar equipos de distribución, mezclado y compactación.","Ejecutar y aprobar tramo de prueba cuando corresponda."],
+ durante:["Controlar dosificación y distribución del ligante.","Controlar pulverización, mezclado y homogeneidad.","Controlar humedad, tiempos de trabajo y compactación.","Controlar terminación y curado."],
+ calidad:["Control de materiales.","Control de dosificación y humedad.","Control de compactación y parámetros de la mezcla tratada.","Control de unidad terminada."],
+ aceptacion:["Dosificación y homogeneidad conformes.","Compactación y resistencia/parámetros exigidos conformes.","Geometría y terminación conformes."]},
+
+"3A": {t:"Bases y subbases de materiales naturales", f:"Sección 3A · Bases y subbases",
+ antes:["Verificar agregado pétreo, agregado grueso, agregado fino, suelos de aporte y agua.","Verificar Fórmula de Obra: espesor, huso granulométrico y criterios de diseño.","Verificar equipos de obra.","Ejecutar y aprobar tramo de prueba."],
+ durante:["Limpiar la superficie existente.","Controlar elaboración del material granular natural.","Controlar transporte y colocación.","Controlar compactación final y terminación.","Ejecutar imprimación cuando corresponda."],
+ calidad:["Plan de ensayos sobre agregados gruesos y finos.","Plan de ensayos sobre suelos de aporte.","Control del proceso de elaboración.","Control de la unidad terminada."],
+ aceptacion:["Granulometría y humedad conformes.","Compactación y requisitos de unidad terminada conformes.","Geometría y terminación conformes."]},
+
+"3B": {t:"Capa estabilizada granulométricamente", f:"Sección 3B · Bases y subbases",
+ antes:["Verificar materiales componentes.","Verificar Fórmula de Obra y huso granulométrico.","Verificar equipos y tramo de prueba."],
+ durante:["Controlar dosificación y mezclado.","Controlar transporte, distribución y humedad.","Controlar compactación y terminación."],
+ calidad:["Ensayos de materiales.","Granulometría y humedad de producción.","Compactación y controles de unidad terminada."],
+ aceptacion:["Composición granulométrica conforme.","Compactación, espesor y geometría conformes."]},
+
+"3C1": {t:"Estabilizada con ligante hidráulico in-situ", f:"Sección 3C1 · Bases y subbases",
+ antes:["Verificar material a estabilizar, ligante hidráulico y agua.","Verificar Fórmula de Obra/dosificación.","Verificar recicladora o equipos de mezclado, distribución y compactación.","Aprobar tramo de prueba."],
+ durante:["Controlar distribución del ligante.","Controlar profundidad y homogeneidad de mezclado in-situ.","Controlar agua, tiempos de ejecución y compactación.","Controlar terminación y curado."],
+ calidad:["Control de materiales y contenido de ligante.","Control de humedad y compactación.","Control de resistencia y unidad terminada según el Pliego."],
+ aceptacion:["Dosificación y resistencia conformes.","Espesor, compactación y geometría conformes."]},
+
+"3C2": {t:"Estabilizada con ligante hidráulico en planta", f:"Sección 3C2 · Bases y subbases",
+ antes:["Verificar materiales, ligante hidráulico y agua.","Verificar Fórmula de Obra.","Verificar planta, transporte, distribución y compactación.","Aprobar tramo de prueba."],
+ durante:["Controlar dosificación y mezclado en planta.","Controlar transporte y tiempos.","Controlar colocación, compactación, terminación y curado."],
+ calidad:["Control de materiales y producción.","Control de contenido de ligante, humedad y resistencia.","Control de unidad terminada."],
+ aceptacion:["Producción y resistencia conformes.","Compactación, espesor y geometría conformes."]},
+
+"3D1": {t:"Estabilizada con asfalto espumado in-situ", f:"Sección 3D1 · Bases y subbases",
+ antes:["Verificar material, ligante asfáltico, agua y aditivos.","Verificar diseño/Fórmula de Obra.","Verificar equipo de espumación y reciclado in-situ.","Aprobar tramo de prueba."],
+ durante:["Controlar espumación y dosificación del ligante.","Controlar profundidad y homogeneidad de mezclado.","Controlar humedad, compactación y terminación."],
+ calidad:["Control de materiales.","Control del proceso de estabilización.","Ensayos de mezcla y unidad terminada."],
+ aceptacion:["Dosificación y mezcla conformes.","Compactación, espesor y parámetros mecánicos conformes."]},
+
+"3D2": {t:"Estabilizada con asfalto espumado en planta", f:"Sección 3D2 · Bases y subbases",
+ antes:["Verificar materiales y ligante.","Verificar diseño/Fórmula de Obra.","Verificar planta, sistema de espumación, transporte y equipos de colocación.","Aprobar tramo de prueba."],
+ durante:["Controlar dosificación y espumación en planta.","Controlar transporte, extendido y compactación.","Controlar humedad y terminación."],
+ calidad:["Control de materiales y producción.","Ensayos de mezcla.","Control de unidad terminada."],
+ aceptacion:["Mezcla y dosificación conformes.","Compactación, espesor y parámetros exigidos conformes."]},
+
+"3D3": {t:"Estabilizada con emulsión asfáltica in-situ", f:"Sección 3D3 · Bases y subbases",
+ antes:["Verificar material, emulsión, agua y aditivos.","Verificar Fórmula de Obra.","Verificar equipos de reciclado/mezclado y compactación.","Aprobar tramo de prueba."],
+ durante:["Controlar dosificación de emulsión.","Controlar profundidad y homogeneidad de mezclado.","Controlar humedad, compactación y curado/rotura."],
+ calidad:["Control de materiales y emulsión.","Control del proceso de mezcla.","Control de unidad terminada."],
+ aceptacion:["Dosificación y mezcla conformes.","Compactación, espesor y comportamiento exigido conformes."]},
+
+"3D4": {t:"Estabilizada con emulsión asfáltica en planta", f:"Sección 3D4 · Bases y subbases",
+ antes:["Verificar materiales, emulsión, agua y aditivos.","Verificar Fórmula de Obra.","Verificar planta, transporte y equipos de colocación.","Aprobar tramo de prueba."],
+ durante:["Controlar dosificación y mezclado en planta.","Controlar transporte, colocación y compactación.","Controlar curado/rotura y terminación."],
+ calidad:["Control de materiales y producción.","Ensayos de mezcla.","Control de unidad terminada."],
+ aceptacion:["Mezcla conforme.","Compactación, espesor y parámetros de aceptación conformes."]},
+
+"4A": {t:"Riego de imprimación", f:"Sección 4A · Riegos asfálticos",
+ antes:["Verificar emulsión de imprimación o asfalto diluido, según corresponda.","Verificar agua y dotación de riego adoptada.","Verificar tanques y equipos de distribución.","Ejecutar tramo de prueba."],
+ durante:["Preparar la superficie de apoyo.","Controlar aplicación uniforme del riego.","Controlar dotación y condiciones de aplicación.","Controlar juntas transversales y longitudinales.","Mantener limpieza y protección del riego."],
+ calidad:["Ensayos sobre emulsiones o asfaltos diluidos.","Control del proceso de distribución.","Control de la unidad terminada."],
+ aceptacion:["Dotación aplicada conforme.","Distribución homogénea y superficie terminada conforme."]},
+
+"4B": {t:"Riego de imprimación reforzada", f:"Sección 4B · Riegos asfálticos",
+ antes:["Verificar materiales bituminosos y agregados previstos.","Verificar dotaciones adoptadas.","Verificar equipos y tramo de prueba."],
+ durante:["Preparar superficie.","Aplicar riego y material de refuerzo según secuencia del Pliego.","Controlar uniformidad, dotación y limpieza."],
+ calidad:["Control de materiales.","Control de dotaciones y proceso de distribución.","Control de unidad terminada."],
+ aceptacion:["Dotaciones y distribución conformes.","Superficie terminada conforme."]},
+
+"4C": {t:"Riego de curado", f:"Sección 4C · Riegos asfálticos",
+ antes:["Verificar emulsión/material de curado.","Definir y verificar dotación.","Verificar equipo distribuidor."],
+ durante:["Preparar/proteger superficie.","Aplicar riego de curado de manera uniforme.","Controlar dotación, continuidad y protección."],
+ calidad:["Control del material bituminoso.","Control de dotación y distribución.","Inspección de unidad terminada."],
+ aceptacion:["Cobertura y dotación conformes.","Curado uniforme sin sectores deficientes."]},
+
+"4D": {t:"Riego de adherencia entre capas asfálticas", f:"Sección 4D · Riegos asfálticos",
+ antes:["Verificar emulsión asfáltica.","Verificar dotación adoptada.","Verificar limpieza y condición de la superficie.","Verificar equipo distribuidor."],
+ durante:["Limpiar y preparar superficie.","Aplicar riego uniformemente.","Controlar dotación, rotura y condiciones previas a la capa siguiente."],
+ calidad:["Control de emulsión.","Control del proceso y dotación.","Inspección de cobertura."],
+ aceptacion:["Adherencia/cobertura uniforme.","Dotación conforme y superficie apta para recibir la capa superior."]},
+
+"5A": {t:"Tratamiento superficial simple (TBSS)", f:"Sección 5A · Tratamientos asfálticos",
+ antes:["Verificar agregado grueso, emulsión asfáltica y aditivos.","Verificar huso granulométrico y Fórmula de Trabajo.","Verificar tanques, distribuidor de emulsión, distribuidor de agregados, compactadores y barredoras.","Aprobar tramo de prueba."],
+ durante:["Preparar superficie de apoyo.","Controlar riego de emulsión.","Controlar distribución de agregados.","Controlar compactación, barrido, limpieza y riego de niebla cuando corresponda."],
+ calidad:["Control de agregados y emulsión.","Control de dotaciones y granulometría.","Control del proceso y unidad terminada."],
+ aceptacion:["Materiales y dotaciones conformes.","Textura, cobertura y terminación conformes."]},
+
+"5B": {t:"Tratamiento superficial doble (TBSD)", f:"Sección 5B · Tratamientos asfálticos",
+ antes:["Verificar agregados y emulsión.","Verificar husos y Fórmula de Trabajo para ambas aplicaciones.","Verificar equipos y tramo de prueba."],
+ durante:["Preparar superficie.","Controlar primera aplicación de emulsión y agregado.","Controlar compactación/barrido.","Controlar segunda aplicación y terminación."],
+ calidad:["Control de materiales y granulometrías.","Control de dotaciones de cada aplicación.","Control de unidad terminada."],
+ aceptacion:["Ambas aplicaciones conformes.","Cobertura, textura y terminación conformes."]},
+
+"5C": {t:"Tratamiento superficial triple (TBST)", f:"Sección 5C · Tratamientos asfálticos",
+ antes:["Verificar materiales, husos y Fórmula de Trabajo de las tres aplicaciones.","Verificar equipos y tramo de prueba."],
+ durante:["Controlar secuencia de tres riegos y tres distribuciones de agregado.","Controlar compactación y barrido entre aplicaciones.","Controlar limpieza y terminación."],
+ calidad:["Control de materiales.","Control de dotaciones y granulometrías de cada aplicación.","Control de unidad terminada."],
+ aceptacion:["Tres aplicaciones conformes.","Textura, cobertura y terminación conformes."]},
+
+"5D": {t:"Tratamiento superficial de sellado (TBSELLO)", f:"Sección 5D · Tratamientos asfálticos",
+ antes:["Verificar materiales y dotación/Fórmula de Trabajo.","Verificar superficie, equipos y tramo de prueba."],
+ durante:["Preparar superficie.","Controlar aplicación de ligante y agregado de sellado.","Controlar compactación, barrido y limpieza."],
+ calidad:["Control de materiales y dotaciones.","Control visual y de unidad terminada."],
+ aceptacion:["Sellado continuo, uniforme y conforme."]},
+
+"5E": {t:"Riego de niebla (TBSRN)", f:"Sección 5E · Tratamientos asfálticos",
+ antes:["Verificar emulsión y dilución cuando corresponda.","Verificar dotación adoptada y equipo distribuidor."],
+ durante:["Preparar superficie.","Aplicar riego de niebla uniformemente.","Controlar dotación, rotura y habilitación."],
+ calidad:["Control de emulsión.","Control de dotación y uniformidad."],
+ aceptacion:["Cobertura homogénea y dotación conforme."]},
+
+"5F": {t:"Lechada asfáltica (LASFAL)", f:"Sección 5F · Tratamientos asfálticos",
+ antes:["Verificar agregados, filler, emulsión, agua y aditivos.","Verificar Fórmula de Obra/Trabajo y granulometría correspondiente.","Verificar equipo mezclador-distribuidor.","Aprobar tramo de prueba."],
+ durante:["Preparar superficie.","Controlar dosificación, mezclado y consistencia.","Controlar distribución, espesor y terminación.","Controlar rotura/curado y habilitación."],
+ calidad:["Control de materiales y granulometría.","Control de dosificación y producción.","Control de unidad terminada."],
+ aceptacion:["Composición y dosificación conformes.","Textura, espesor y terminación conformes."]},
+
+"5G": {t:"Microaglomerado asfáltico en frío (MAAF)", f:"Sección 5G · Tratamientos asfálticos",
+ antes:["Verificar agregados, filler, emulsión modificada/indicada, agua y aditivos.","Verificar Fórmula de Obra y granulometría.","Verificar equipo mezclador-distribuidor.","Aprobar tramo de prueba."],
+ durante:["Preparar superficie.","Controlar dosificación y mezclado.","Controlar distribución, juntas, textura y terminación.","Controlar rotura y habilitación."],
+ calidad:["Control de materiales.","Control de producción y dosificación.","Control de unidad terminada."],
+ aceptacion:["Mezcla y dosificación conformes.","Textura, espesor y terminación conformes."]},
+
+"5H": {t:"Cape Seal (TBSCS)", f:"Sección 5H · Tratamientos asfálticos",
+ antes:["Verificar materiales de tratamiento superficial y de lechada/micro.","Verificar fórmulas y dotaciones de ambas etapas.","Verificar equipos y tramo de prueba."],
+ durante:["Ejecutar y controlar tratamiento superficial.","Respetar condiciones y tiempos antes de la segunda etapa.","Ejecutar y controlar lechada/microaglomerado.","Controlar terminación y habilitación."],
+ calidad:["Control independiente de materiales y proceso de cada etapa.","Control de unidad terminada del sistema Cape Seal."],
+ aceptacion:["Primera y segunda etapa conformes.","Sistema terminado uniforme y conforme."]},
+
+"6B": {t:"CAC-R / CAS-R con aporte de RAP", f:"Sección 6B · Mezclas asfálticas",
+ antes:["Verificar agregados vírgenes, RAP, ligante y aditivos.","Caracterizar y controlar acopio de RAP.","Verificar Fórmula de Obra y porcentaje de RAP.","Verificar planta apta, equipos y tramo de prueba."],
+ durante:["Controlar preparación de superficie.","Controlar elaboración y alimentación de RAP.","Controlar temperaturas, transporte, colocación, compactación y juntas."],
+ calidad:["Control de materiales vírgenes y RAP.","Control por lotes de producción y lotes de obra.","Control de ligante, granulometría, vacíos, temperaturas y unidad terminada."],
+ aceptacion:["Producción conforme a Fórmula de Obra.","Vacíos, espesor, ancho/perfil, macrotextura e IRI conforme a criterios del Pliego."]},
+
+"6C": {t:"MAAC / MAAS", f:"Sección 6C · Mezclas asfálticas",
+ antes:["Verificar agregados, filler, ligante y aditivos.","Verificar Fórmula de Obra y granulometría.","Verificar planta, equipos y tramo de prueba."],
+ durante:["Preparar superficie.","Controlar elaboración, temperaturas, transporte y colocación.","Controlar compactación y juntas."],
+ calidad:["Control de materiales.","Control por lotes de producción.","Control de unidad terminada."],
+ aceptacion:["Contenido de ligante, granulometría y temperaturas conformes.","Vacíos, espesor, geometría, macrotextura e IRI según corresponda."]},
+
+"6D": {t:"MAC-F / MAS-F", f:"Sección 6D · Mezclas asfálticas",
+ antes:["Verificar materiales, ligante, filler/fibras/aditivos cuando correspondan.","Verificar Fórmula de Obra.","Verificar equipos y tramo de prueba."],
+ durante:["Preparar superficie.","Controlar elaboración, transporte y colocación.","Controlar temperaturas, compactación y juntas."],
+ calidad:["Control de materiales y producción.","Control de contenido de ligante, granulometría, agua y temperaturas.","Control de unidad terminada."],
+ aceptacion:["Producción conforme.","Vacíos, espesor, macrotextura, geometría e IRI conformes."]},
+
+"7A": {t:"Bacheo asfáltico BAA / BAE", f:"Sección 7A · Rehabilitación de pavimentos flexibles",
+ antes:["Definir bacheo aislado, extendido o profundo según proyecto.","Verificar mezcla asfáltica y ligantes para mezcla/sellado de bordes.","Verificar Fórmula de Obra.","Verificar equipos de corte, fresado/remoción, limpieza, riego, distribución y compactación."],
+ durante:["Preparar y delimitar el bache.","Remover material afectado y limpiar.","Aplicar riego correspondiente.","Controlar elaboración/transporte de mezcla, colocación y compactación.","Sellar perímetro y limpiar."],
+ calidad:["Control de mezcla asfáltica.","Control de proceso y temperaturas.","Control de unidad terminada."],
+ aceptacion:["Bache compacto, nivelado y correctamente sellado.","Mezcla y terminación conformes."]},
+
+"7B": {t:"Fresado de pavimento asfáltico", f:"Sección 7B · Rehabilitación de pavimentos flexibles",
+ antes:["Definir profundidad, ancho y límites de fresado.","Verificar fresadora y equipos auxiliares.","Planificar gestión/transporte del material fresado."],
+ durante:["Controlar profundidad y ancho de fresado.","Controlar regularidad de pasadas y transiciones.","Controlar limpieza y retiro del material.","Evitar daños a capas que deban conservarse."],
+ calidad:["Control geométrico de profundidad y superficie.","Evaluación visual de textura y terminación."],
+ aceptacion:["Profundidad, ancho y superficie fresada conformes.","Superficie limpia y apta para la etapa siguiente."]},
+
+"7C": {t:"Sellado de fisuras en pavimentos asfálticos", f:"Sección 7C · Rehabilitación de pavimentos flexibles",
+ antes:["Identificar y clasificar fisuras a tratar.","Verificar material sellante y equipos.","Verificar condiciones de humedad y limpieza."],
+ durante:["Preparar/limpiar fisuras.","Aplicar sellante según geometría y procedimiento del Pliego.","Controlar llenado, adherencia y terminación."],
+ calidad:["Control del material sellante.","Control visual de preparación y aplicación.","Verificación de continuidad del sellado."],
+ aceptacion:["Fisuras correctamente preparadas y selladas.","Sellado adherido, continuo y terminado."]},
+
+"7D": {t:"Retardo de fisuras en pavimentos asfálticos", f:"Sección 7D · Rehabilitación de pavimentos flexibles",
+ antes:["Verificar sistema/material de retardo especificado.","Verificar condición y preparación de superficie.","Verificar equipos y procedimiento."],
+ durante:["Preparar superficie.","Aplicar sistema de retardo de fisuras.","Controlar solapes, adherencia, continuidad y compatibilidad con la capa superior."],
+ calidad:["Control de materiales.","Control visual y geométrico de aplicación."],
+ aceptacion:["Sistema continuo, adherido y conforme antes de cubrir."]},
+
+"8A": {t:"Pavimentos de hormigón", f:"Sección 8A · Pavimentos de hormigón",
+ antes:["Verificar agregados gruesos y finos, cemento, agua, aditivos/adiciones, fibras, membrana de curado, barras y materiales de juntas.","Verificar estudio de mezcla/Fórmula de Trabajo y TMN.","Verificar equipos, encofrados/guías y sistemas de colocación.","Verificar disposición de pasadores y barras de unión.","Aprobar tramo de prueba cuando corresponda."],
+ durante:["Controlar elaboración y transporte del hormigón.","Controlar colocación, distribución, compactación y terminación superficial.","Controlar inserción/posición de pasadores y barras.","Controlar texturizado, protección y curado.","Controlar ejecución, aserrado y sellado de juntas."],
+ calidad:["Control de materiales y hormigón fresco.","Control de resistencia y propiedades especificadas.","Control geométrico, espesor y regularidad.","Control de textura y unidad terminada."],
+ aceptacion:["Resistencia y espesor conformes.","Geometría, regularidad y textura conformes.","Juntas, curado y terminación conformes."]},
+
+"8B": {t:"Recubrimientos de hormigón sobre pavimentos asfálticos", f:"Sección 8B · Pavimentos de hormigón",
+ antes:["Definir recubrimiento adherido o no adherido según proyecto.","Verificar condición y preparación del pavimento asfáltico existente.","Verificar materiales del hormigón, barras y juntas.","Verificar Fórmula de Trabajo, equipos y detalles de juntas."],
+ durante:["Preparar capa existente según el tipo de recubrimiento.","Controlar elaboración, transporte, colocación y compactación del hormigón.","Controlar juntas, pasadores/barras cuando correspondan.","Controlar texturizado, protección y curado."],
+ calidad:["Control de materiales y hormigón.","Control de adherencia/preparación cuando corresponda.","Control de resistencia, espesor, geometría y regularidad."],
+ aceptacion:["Hormigón y espesor conformes.","Juntas y terminación conformes.","Regularidad y textura conformes."]}
+};
+
+
+const complementosManual2024 = {
+  "2": {
+    antes:[
+      "💡 Manual 2024: verificar servicios existentes y balizarlos antes de interferir con ellos.",
+      "💡 Manual 2024: comprobar presencia de aguas libres o vertientes y prever drenaje antes de continuar."
+    ],
+    durante:[
+      "💡 Manual 2024: en terraplenes controlar espesor de tendido, humedad y compactación de cada capa.",
+      "💡 Manual 2024: en desmontes observar homogeneidad geológica y condiciones de humedad de la futura subrasante."
+    ],
+    calidad:[
+      "💡 Manual 2024: complementar con granulometría, límites de Atterberg, clasificación, compactación y CBR cuando correspondan.",
+      "💡 Manual 2024: controlar cotas de centro y bordes, ancho, perfiles transversales, densidad, espesor y lisura superficial."
+    ]
+  },
+  "3": {
+    antes:[
+      "💡 Manual 2024: verificar que el frente de cantera esté libre de suelo vegetal y materiales degradados o expansivos.",
+      "💡 Manual 2024: considerar un tramo de prueba para definir equipo, número de pasadas, velocidad y parámetros de vibración."
+    ],
+    durante:[
+      "💡 Manual 2024: evitar contaminación y minimizar segregación durante carga, transporte, descarga y extendido.",
+      "💡 Manual 2024: verificar humedad con el material ya extendido y antes de iniciar la compactación."
+    ],
+    calidad:[
+      "💡 Manual 2024: verificar homogeneidad del material con la frecuencia establecida por Pliego/Plan de Calidad.",
+      "💡 Manual 2024: controlar planialtimetría, geometría, espesores, anchos, lisura y densidades de la capa terminada."
+    ]
+  },
+  "4": {
+    antes:[
+      "💡 Manual 2024: verificar que la superficie esté aprobada, limpia y en condición adecuada antes del riego.",
+      "💡 Manual 2024: revisar condiciones meteorológicas y funcionamiento/calibración del distribuidor."
+    ],
+    durante:[
+      "💡 Manual 2024: observar uniformidad transversal y longitudinal del riego y corregir zonas con falta o exceso.",
+      "💡 Manual 2024: proteger el riego del tránsito y de contaminaciones hasta que se encuentre en condiciones de recibir la capa siguiente."
+    ],
+    calidad:[
+      "💡 Manual 2024: registrar material utilizado, dotación aplicada, temperatura cuando corresponda y superficie ejecutada."
+    ]
+  },
+  "5": {
+    antes:[
+      "💡 Manual 2024: confirmar estado de la superficie, Fórmula de Obra, materiales y calibración de equipos antes de comenzar.",
+      "💡 Manual 2024: disponer de materiales suficientes y homogéneos para evitar cambios durante un lote de ejecución."
+    ],
+    durante:[
+      "💡 Manual 2024: vigilar uniformidad de distribución de ligante y áridos/mezcla y evitar segregaciones.",
+      "💡 Manual 2024: prestar especial atención a juntas, bordes, solapes, compactación y condiciones de habilitación al tránsito."
+    ],
+    calidad:[
+      "💡 Manual 2024: documentar consumos/dotaciones reales y efectuar controles de materiales, proceso y unidad terminada."
+    ]
+  },
+  "6": {
+    antes:[
+      "💡 Manual 2024: revisar acopios, Fórmula de Obra, planta, transporte, terminadora y equipos de compactación antes de producir.",
+      "💡 Manual 2024: asegurar trazabilidad de materiales y disponibilidad de equipos de control de temperatura."
+    ],
+    durante:[
+      "💡 Manual 2024: controlar continuidad de producción, transporte y colocación para evitar enfriamientos y detenciones innecesarias.",
+      "💡 Manual 2024: observar segregación, condición de la superficie, juntas y secuencia de compactación."
+    ],
+    calidad:[
+      "💡 Manual 2024: relacionar los controles de planta con el lote colocado y conservar la trazabilidad hasta la unidad terminada."
+    ]
+  },
+  "8": {
+    antes:[
+      "💡 Manual 2024: controlar materiales antes de incorporarlos a la mezcla y prestar atención a cambios de proveedor o marca de cemento.",
+      "💡 Manual 2024: verificar superficie de apoyo, geometría, armaduras/pasadores, materiales de curado y juntas."
+    ],
+    durante:[
+      "💡 Manual 2024: controlar consistencia del hormigón, muestreo representativo, colocación y vibración evitando segregación.",
+      "💡 Manual 2024: no esparcir agua para facilitar la terminación superficial.",
+      "💡 Manual 2024: controlar curado, ventana de aserrado, profundidad de juntas y protección ante cambios meteorológicos."
+    ],
+    calidad:[
+      "💡 Manual 2024: tomar muestras representativas preferentemente en la parte media de las descargas y controlar su conservación y traslado.",
+      "💡 Manual 2024: verificar geometría, resistencia, textura, juntas y regularidad de la unidad terminada."
+    ]
+  }
+};
+
+function familiaDeActividad(codigo) {
+    if (/^[234568]/.test(codigo)) return codigo.charAt(0);
+    return null;
+}
+
+function combinarConManual(codigo, etapa, items) {
+    const familia = familiaDeActividad(codigo);
+    const complemento = familia && complementosManual2024[familia]
+        ? (complementosManual2024[familia][etapa] || [])
+        : [];
+    return items.concat(complemento);
+}
+
+function listaTareas(items) {
+    return '<ul class="tarea-pliego-lista">' + items.map(x => '<li>' + x + '</li>').join('') + '</ul>';
+}
+
+function bloqueEtapa(id, titulo, items) {
+    return `<div class="grupo-requisito">
+      <button class="grupo-requisito-titulo" onclick="toggleRequisito('${id}')">
+        <span>${titulo}</span><span>⌄</span>
+      </button>
+      <div id="${id}" class="grupo-requisito-contenido oculto">
+        ${listaTareas(items)}
+      </div>
+    </div>`;
+}
+
+function mostrarActividadPliego(codigo) {
+    const a = actividadesPliego[codigo] || actividadesAcopios[codigo];
+    if (!a) return;
+
+    const proyecto = document.getElementById("selectorProyecto").value;
+    document.getElementById("obraDetalle").innerText = proyecto;
+    document.getElementById("badgeActividadPliego").innerText = codigo.startsWith("A") ? "ACOPIOS" : "CONTROL " + codigo;
+    document.getElementById("tituloActividad").innerText = a.t;
+    document.getElementById("descripcionActividad").innerText = "Requisitos contractuales + recomendaciones prácticas de control";
+    document.getElementById("fuenteActividadPliego").innerText = "Fuente principal: Pliegos / documentación contractual DNV–MTOP · " + a.f + " · Complemento: Manual para la Dirección de Obra 2024";
+
+    const base = "act" + codigo.replace(/[^A-Za-z0-9]/g,"");
+    document.getElementById("contenidoActividadPliego").innerHTML = a.contenido ? a.contenido : (
+        bloqueEtapa(base+"Antes", "ANTES DE EJECUTAR", combinarConManual(codigo, "antes", a.antes)) +
+        bloqueEtapa(base+"Durante", "DURANTE LA EJECUCIÓN", combinarConManual(codigo, "durante", a.durante)) +
+        bloqueEtapa(base+"Calidad", "CONTROL DE CALIDAD", combinarConManual(codigo, "calidad", a.calidad)) +
+        bloqueEtapa(base+"Aceptacion", "ACEPTACIÓN", a.aceptacion) +
+        (a.nota ? '<div class="aviso-pliego"><strong>💡 Nota de control:</strong> ' + a.nota + '</div>' : '')
+    );
+
+    mostrarPantalla("pantallaDetalleControl");
+}
+
+
+const familiasPliego = {
+  "2": {
+    titulo: "Movimiento de suelo",
+    items: [
+      ["2A","Limpieza de terreno"],
+      ["2B","Excavaciones"],
+      ["2C","Terraplén"],
+      ["2D","Preparación de subrasante"],
+      ["2E","Recubrimiento con suelo seleccionado"],
+      ["2G","Recubrimiento de taludes y banquinas"],
+      ["2H","Mejoramiento con cal y LH"]
+    ]
+  },
+  "3": {
+    titulo: "Bases y subbases",
+    items: [
+      ["3A","Bases y subbases de materiales naturales"],
+      ["3B","Capa estabilizada granulométricamente"],
+      ["3C1","Estabilizada con ligante hidráulico in-situ"],
+      ["3C2","Estabilizada con ligante hidráulico en planta"],
+      ["3D1","Estabilizada con asfalto espumado in-situ"],
+      ["3D2","Estabilizada con asfalto espumado en planta"],
+      ["3D3","Estabilizada con emulsión asfáltica in-situ"],
+      ["3D4","Estabilizada con emulsión asfáltica en planta"]
+    ]
+  },
+  "4": {
+    titulo: "Riegos asfálticos",
+    items: [
+      ["4A","Riego de imprimación"],
+      ["4B","Riego de imprimación reforzada"],
+      ["4C","Riego de curado"],
+      ["4D","Riego de adherencia entre capas asfálticas"]
+    ]
+  },
+  "5": {
+    titulo: "Tratamientos asfálticos",
+    items: [
+      ["5A","Tratamiento superficial simple (TBSS)"],
+      ["5B","Tratamiento superficial doble (TBSD)"],
+      ["5C","Tratamiento superficial triple (TBST)"],
+      ["5D","Tratamiento superficial de sellado (TBSELLO)"],
+      ["5E","Riego de niebla (TBSRN)"],
+      ["5F","Lechada asfáltica (LASFAL)"],
+      ["5G","Microaglomerado asfáltico en frío (MAAF)"],
+      ["5H","Cape Seal (TBSCS)"]
+    ]
+  },
+  "6": {
+    titulo: "Mezclas asfálticas",
+    items: [
+      ["6A","CAC / CAS"],
+      ["6B","CAC-R / CAS-R con RAP"],
+      ["6C","MAAC / MAAS"],
+      ["6D","MAC-F / MAS-F"]
+    ]
+  },
+  "7": {
+    titulo: "Rehabilitación de pavimentos flexibles",
+    items: [
+      ["7A","Bacheo asfáltico BAA / BAE"],
+      ["7B","Fresado de pavimento asfáltico"],
+      ["7C","Sellado de fisuras"],
+      ["7D","Retardo de fisuras"]
+    ]
+  },
+  "8": {
+    titulo: "Pavimentos de hormigón",
+    items: [
+      ["8A","Pavimentos de hormigón"],
+      ["8B","Recubrimientos de hormigón sobre pavimentos asfálticos"]
+    ]
+  }
+};
+
+function mostrarFamiliaTareas(seccion) {
+    const familia = familiasPliego[seccion];
+    if (!familia) return;
+
+    const proyecto = document.getElementById("selectorProyecto").value;
+    document.getElementById("proyectoFamiliaTareas").innerText = proyecto;
+    document.getElementById("badgeFamiliaTareas").innerText = "SECCIÓN " + seccion;
+    document.getElementById("tituloFamiliaTareas").innerText = familia.titulo;
+
+    const lista = document.getElementById("listaFamiliaTareas");
+    lista.innerHTML = "";
+
+    familia.items.forEach(function(item) {
+        const codigo = item[0];
+        const nombre = item[1];
+        const boton = document.createElement("button");
+
+        if (codigo === "6A") {
+            boton.onclick = function() { mostrarTiposMezcla(); };
+        } else {
+            boton.onclick = function() { mostrarActividadPliego(codigo); };
+        }
+
+        boton.innerHTML = "<strong>" + codigo + " · " + nombre + "</strong>";
+        lista.appendChild(boton);
+    });
+
+    mostrarPantalla("pantallaFamiliaTareas");
+}
+
+
+function mostrarTemperaturaMezclas() {
+    const proyecto = document.getElementById("selectorProyecto").value;
+    document.getElementById("proyectoTemperaturaMezclas").innerText = proyecto;
+    mostrarPantalla("pantallaTemperaturaMezclas");
+}
+
+function mostrarMezclasPorTemperatura(tipo) {
+    const proyecto = document.getElementById("selectorProyecto").value;
+    document.getElementById("proyectoMezclasTemperatura").innerText = proyecto;
+
+    const lista = document.getElementById("listaMezclasTemperatura");
+    const titulo = document.getElementById("tituloMezclasTemperatura");
+    lista.innerHTML = "";
+
+    let opciones = [];
+
+    if (tipo === "caliente") {
+        titulo.innerText = "🔥 Mezclas en caliente";
+        opciones = [
+            ["CAC", "Concreto asfáltico", "ligante"],
+            ["CAC-R", "Concreto asfáltico con RAP", "actividad", "6B"],
+            ["MAAC", "Arena-asfalto", "actividad", "6C"],
+            ["MAC-F", "Microaglomerado tipo F", "actividad", "6D"]
+        ];
+    } else {
+        titulo.innerText = "🌡️ Mezclas semicalientes";
+        opciones = [
+            ["CAS", "Concreto asfáltico", "ligante"],
+            ["CAS-R", "Concreto asfáltico con RAP", "actividad", "6B"],
+            ["MAAS", "Arena-asfalto", "actividad", "6C"],
+            ["MAS-F", "Microaglomerado tipo F", "actividad", "6D"]
+        ];
+    }
+
+    opciones.forEach(function(op) {
+        const boton = document.createElement("button");
+        boton.innerHTML = "<strong>" + op[1] + "</strong><small>" + op[0] + "</small>";
+
+        if (op[2] === "ligante") {
+            boton.onclick = function() {
+                mostrarTipoLiganteMezcla(op[0], op[1]);
+            };
+        } else {
+            boton.onclick = function() {
+                mostrarActividadPliego(op[3]);
+            };
+        }
+        lista.appendChild(boton);
+    });
+
+    mostrarPantalla("pantallaMezclasTemperatura");
+}
+
+function mostrarAcopios() {
+    const proyecto = document.getElementById("selectorProyecto").value;
+    document.getElementById("proyectoAcopios").innerText = proyecto;
+    mostrarPantalla("pantallaAcopios");
+}
+
+
+let mezclaPendienteLigante = "";
+let nombreMezclaPendienteLigante = "";
+let temperaturaMezclaActual = "";
+
+function mostrarTipoLiganteMezcla(codigo, nombre) {
+    mezclaPendienteLigante = codigo;
+    nombreMezclaPendienteLigante = nombre;
+
+    const proyecto = document.getElementById("selectorProyecto").value;
+    document.getElementById("proyectoTipoLiganteMezcla").innerText = proyecto;
+    document.getElementById("tituloTipoLiganteMezcla").innerText =
+        nombre + " (" + codigo + ")";
+
+    mostrarPantalla("pantallaTipoLiganteMezcla");
+}
+
+function seleccionarLiganteMezcla(tipo) {
+    if (!mezclaPendienteLigante) return;
+    mostrarDetalleMezcla(mezclaPendienteLigante, tipo);
+}
+
+function volverATiposTemperatura() {
+    mostrarPantalla("pantallaMezclasTemperatura");
+}
+
+</script>
+
+</body>
+</html>
